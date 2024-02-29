@@ -1,4 +1,15 @@
 package co.edu.uniquindio.unilocalProyect.modelo;
 
-public class Moderador {
+import lombok.*;
+
+import java.io.Serializable;
+
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
+@Setter
+@Getter
+@AllArgsConstructor
+public class Moderador extends Cuenta implements Serializable {
+    private String codigo;
 }

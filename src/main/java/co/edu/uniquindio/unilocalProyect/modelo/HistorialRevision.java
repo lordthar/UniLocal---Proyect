@@ -2,15 +2,15 @@ package co.edu.uniquindio.unilocalProyect.modelo;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-
-public class Pqrs {
-    private String titulo;
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class HistorialRevision {
+    private LocalDateTime fecha;
     private String descripcion;
-
 }

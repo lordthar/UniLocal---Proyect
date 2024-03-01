@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.modelo;
 
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("negocios")
@@ -14,5 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Negocio {
     private String nombre;
     private String descripcion;
+    @Id
+    @EqualsAndHashCode.Include
     private String codigo;
 }

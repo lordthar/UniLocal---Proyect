@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unilocalProyect.modelo;
+package co.edu.uniquindio.unilocalProyect.modelo.entidades;
 
 import lombok.*;
 

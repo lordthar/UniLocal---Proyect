@@ -1,4 +1,4 @@
 package co.edu.uniquindio.unilocalProyect.dtos;
 
-public class SesionDTO {
+public record SesionDTO() {
 }

@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class Horario {
+    private String dia;
     private LocalDateTime horaInicio;
     private LocalDateTime horaFin;
-    private String dia;
 
 }

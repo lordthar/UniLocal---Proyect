@@ -1,4 +1,4 @@
-package co.edu.uniquindio.unilocalProyect.modelo.entidades;
+package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -12,9 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Document("Pqrs")
 public class Pqrs {
-    private String titulo;
-    private String descripcion;
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
+
+    private String titulo;
+    private String descripcion;
+    private String codigoCliente;
+    private String codigoNegocio;
 }

@@ -14,11 +14,13 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class Comentario {
-    private int calificacion;
-    private LocalDateTime fecha;
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
+    private int calificacion;
+    private LocalDateTime fecha;
+    private String codigoCliente;
+    private String codigoNegocio;
     private String mensaje;
     private String respuesta;
 }

@@ -1,7 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Cuenta;
-import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,10 +24,7 @@ public class Cliente extends Cuenta implements Serializable {
     private String nickname;
     private String fotoPerfil;
     private String ciudadResidencia;
-    private String password;
-    private String usuario;
     private List<String> telefonos;
-    private ESTADO_REGISTRO estadoRegistro;
-
+    private List<Favorito> codigoFavorito;
 
 }

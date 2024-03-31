@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.modelo.entidades;
 
+import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import lombok.*;
 
 @AllArgsConstructor
@@ -12,4 +13,5 @@ public class Cuenta {
     private String nombre;
     private String password;
     private String email;
+    private ESTADO_REGISTRO estadoRegistro;
 }

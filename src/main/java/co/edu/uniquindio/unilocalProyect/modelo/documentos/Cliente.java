@@ -20,7 +20,7 @@ public class Cliente extends Cuenta implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
-
+    private String nombre;
     private String nickname;
     private String fotoPerfil;
     private String ciudadResidencia;

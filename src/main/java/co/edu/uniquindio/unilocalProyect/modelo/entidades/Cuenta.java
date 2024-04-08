@@ -10,7 +10,7 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 public class Cuenta {
-    private String nombre;
+    private String nickname;
     private String password;
     private String email;
     private ESTADO_REGISTRO estadoRegistro;

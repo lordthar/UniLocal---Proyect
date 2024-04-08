@@ -10,7 +10,7 @@ public record RegistroClienteDTO(
         @NotBlank String fotoPerfil,
         @NotBlank String ciudadRecidencia,
         @NotBlank @Email String Email,
-        @NotBlank String password
+        @NotBlank @Length(max = 10, min = 8) String password
 ) {
 
 }

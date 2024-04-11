@@ -9,8 +9,8 @@ import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
-public record ActualizarNegocioDTo(
-        @NotBlank String codigo,
+public record ActualizarNegocioDTO(
+        @NotBlank String idNegocio,
         @NotBlank @Length(max = 50) String nombre,
         @NotBlank String descripcion,
         @NotEmpty List<String> imagenes,

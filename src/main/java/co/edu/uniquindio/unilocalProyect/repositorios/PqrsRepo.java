@@ -1,6 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.repositorios;
 
-import co.edu.uniquindio.unilocalProyect.modelo.entidades.Pqrs;
+import co.edu.uniquindio.unilocalProyect.modelo.documentos.Pqrs;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

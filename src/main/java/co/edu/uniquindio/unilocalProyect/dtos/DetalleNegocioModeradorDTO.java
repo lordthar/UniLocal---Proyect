@@ -10,7 +10,7 @@ import java.util.List;
 
 public record DetalleNegocioModeradorDTO(
         String nombre,
-        String descripcio,
+        String descripcion,
         String codigoCliente,
         List<String> imagenes,
         List<String> telefonos,

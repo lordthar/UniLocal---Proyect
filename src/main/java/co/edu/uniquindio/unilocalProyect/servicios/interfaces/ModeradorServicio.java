@@ -1,24 +1,21 @@
 package co.edu.uniquindio.unilocalProyect.servicios.interfaces;
 
+import co.edu.uniquindio.unilocalProyect.dtos.AprobarNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleNegocioModeradorDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.RechazarNegcioDTO;
-import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
+import co.edu.uniquindio.unilocalProyect.dtos.RechazarNegocioDTO;
+import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 
 import java.util.List;
 
 public interface ModeradorServicio extends CuentaServicio {
 
-    void aprobarNegocio(String idLugar);
+    void aprobarNegocio(AprobarNegocioDTO aprobarNegocioDTO) throws Exception;
 
-    void rechazarNegocio(RechazarNegcioDTO rechazarNegcioDTO);
+    void rechazarNegocio(RechazarNegocioDTO rechazarNegocioDTO) throws Exception;
 
-    List<DetalleNegocioModeradorDTO> filtarPorNombreNegocio();
+    List<DetalleNegocioModeradorDTO> filtarPorNombreNegocio(String nombreNegocio) throws Exception;
 
-    List<DetalleNegocioModeradorDTO> filtarPorNombrePersona();
+    List<DetalleNegocioModeradorDTO> filtarNegociosPorNombrePropietario(String nombrePersona) throws Exception;
 
-    List<DetalleNegocioModeradorDTO> negociosPendientes();
-
-    List<DetalleNegocioModeradorDTO> negociosDenegados(String idModerador);
-
-    List<DetalleNegocioModeradorDTO> negociosAprobados(String idModerador);
+    List<DetalleNegocioModeradorDTO> filtrarPorEstadoNegocio(ESTADO_NEGOCIO estadoNegocio) throws Exception;
 }

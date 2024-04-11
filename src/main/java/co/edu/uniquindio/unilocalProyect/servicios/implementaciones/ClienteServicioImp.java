@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocalProyect.dtos.ActualizarClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.EliminarClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.RegistroClienteDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
@@ -58,8 +59,8 @@ public class ClienteServicioImp implements ClienteServicio {
         clienteRepo.save(cliente);
     }
 
-    public void eliminarCliente (String idCuenta) throws Exception{
-        Optional<Cliente> optionalCliente = clienteRepo.findById(idCuenta);
+    public void eliminarCliente (EliminarClienteDTO eliminarClienteDTO) throws Exception{
+        Optional<Cliente> optionalCliente = clienteRepo.findById(eliminarClienteDTO.codigo());
 
         if(optionalCliente.isEmpty()){
             throw new Exception("waos");
@@ -69,6 +70,12 @@ public class ClienteServicioImp implements ClienteServicio {
         cliente.setEstadoRegistro(ESTADO_REGISTRO.INACTIVO);
 
         clienteRepo.save(cliente);
+    }
+
+
+    public Cliente buscarCliente(DetalleClienteDTO detalleClienteDTO) throws Exception {
+
+        return null;
     }
 
     public DetalleClienteDTO obtenerCliente (String idCuenta) throws Exception{
@@ -88,9 +95,6 @@ public class ClienteServicioImp implements ClienteServicio {
                 cliente.getCodigo()
         );
     }
-
-
-
     public void enviarLinkRecuperacion(String email) throws Exception{
         Optional<Cliente> optionalCliente = clienteRepo.findByEmail(email);
 

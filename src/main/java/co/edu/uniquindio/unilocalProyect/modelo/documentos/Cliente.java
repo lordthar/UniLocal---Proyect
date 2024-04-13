@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Cuenta;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,10 +21,11 @@ public class Cliente extends Cuenta implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
+
     private String nombre;
     private String fotoPerfil;
     private String ciudadResidencia;
     private List<String> telefonos;
-    private List<Favorito> codigoFavorito;
+    private List<Favorito> codigosFavorito;
 
 }

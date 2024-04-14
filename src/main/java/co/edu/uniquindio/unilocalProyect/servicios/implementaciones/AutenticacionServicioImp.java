@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocalProyect.dtos.LoginDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.TokenDTO;
+import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.repositorios.ModeradorRepo;
@@ -27,7 +28,23 @@ public class AutenticacionServicioImp implements AutenticacionServicio {
 
     @Override
     public TokenDTO iniciarSesionCliente(LoginDTO loginDTO) throws Exception {
-        return null;
+        Optional<Cliente> clienteOptional = clienteRepo.findByEmail(loginDTO.email());
+
+        if(clienteOptional.isEmpty()){
+            throw new Exception("El correo proporcionado no se encuentra registrado");
+        }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Cliente cliente = clienteOptional.get();
+
+        if(!passwordEncoder.matches(loginDTO.password(), cliente.getPassword())){
+            throw new Exception("La contraseña ingresada es incorrecta, intente de nuevo");
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("rol", "CLIENTE");
+        map.put("nombre", cliente.getNombre());
+        map.put("id", cliente.getCodigo());
+        return new TokenDTO( jwtUtils.generarToken(cliente.getEmail(), map) );
     }
 
     @Override

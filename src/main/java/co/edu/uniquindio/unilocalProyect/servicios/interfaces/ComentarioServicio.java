@@ -1,8 +1,8 @@
 package co.edu.uniquindio.unilocalProyect.servicios.interfaces;
 
 import co.edu.uniquindio.unilocalProyect.dtos.CrearComentarioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.DetalleComentarioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.EditarComentarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.EliminarComentarioDTO;
 
 public interface ComentarioServicio {
 
@@ -10,9 +10,9 @@ public interface ComentarioServicio {
 
     void editarComentario(EditarComentarioDTO editarComentarioDTO)throws Exception;
 
-    void eliminarComentario(EliminarComentarioDTO eliminarComentarioDTO)throws Exception;
+    void eliminarComentario(String idComentario)throws Exception;
 
-    void buscarComentario()throws Exception;
+    DetalleComentarioDTO obtenerComentario(String idComentario)throws Exception;
 
 
 

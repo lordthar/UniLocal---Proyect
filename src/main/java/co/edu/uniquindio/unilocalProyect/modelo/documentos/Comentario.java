@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 
+import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,4 +24,5 @@ public class Comentario {
     private String codigoNegocio;
     private String mensaje;
     private String respuesta;
+    private ESTADO_REGISTRO estadoRegistro;
 }

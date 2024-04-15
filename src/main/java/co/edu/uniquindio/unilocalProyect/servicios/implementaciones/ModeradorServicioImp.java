@@ -24,18 +24,20 @@ public class ModeradorServicioImp implements ModeradorServicio {
 
     private final NegocioRepo negocioRepo;
     private final ModeradorRepo moderadorRepo;
+
+
     @Override
-    public void loginCuenta(LoginCuentaDTO loginCuentaDTO) throws Exception {
+    public void eliminarCuenta(String idCuenta) throws Exception {
 
     }
 
     @Override
-    public void sesionCuenta(SesionCuentaDTO sesionCuentaDTO) throws Exception {
+    public void enviarLinkRecuperacion(String email) throws Exception {
 
     }
 
     @Override
-    public String cambioContraseña(CambioPasswordDTO cambioPasswordDTO) throws Exception {
+    public String cambiarPassword(CambioPasswordDTO cambioPasswordDTO) throws Exception {
         Optional<Moderador> moderadorOptional = moderadorRepo.findById(cambioPasswordDTO.id());
         if (moderadorOptional.isEmpty()) {
             throw new Exception("El moderador no se encuentra en la base de datos");

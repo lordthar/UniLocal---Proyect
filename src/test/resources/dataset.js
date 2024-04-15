@@ -147,28 +147,28 @@ db.negocios.insertMany([
         horarios: [
             {
                 dia: 'Lunes',
-                horaInicio: '12:30',
-                horaFin: '06:45'
+                horaInicio: ISODate('2024-04-14T12:30:00.000Z'),
+                horaFin: ISODate('2024-04-14T06:45:00.000Z')
             },
             {
                 dia: 'Martes',
-                horaInicio: '06:00',
-                horaFin: '11:00'
+                horaInicio: ISODate('2024-04-14T06:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T11:00:00.000Z')
             },
             {
                 dia: 'Martes',
-                horaInicio: '13:00',
-                horaFin: '18:00'
+                horaInicio: ISODate('2024-04-14T13:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T18:00:00.000Z')
             },
             {
                 dia: 'Viernes',
-                horaInicio: '06:00',
-                horaFin: '11:00'
+                horaInicio: ISODate('2024-04-14T06:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T11:00:00.000Z')
             },
             {
                 dia: 'Sabado',
-                horaInicio: '06:00',
-                horaFin: '14:00'
+                horaInicio: ISODate('2024-04-14T06:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T14:00:00.000Z')
             }
         ],
         coordenada: {
@@ -177,36 +177,36 @@ db.negocios.insertMany([
         },
         estadoNegocio: 'APROBADO',
         codigoClientePremium: 'CP01',
-        tipoNegocio: 'OTRO',
+        tipoNegocio: 'PANADERIA',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
             {
                 codigoModerador: 'M01',
-                fecha: '2024-04-09T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2024-04-11T09:00:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'La descripcion no cumple con el tipo de negocio',
                 estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2024-04-15T12:00:00',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Las imagenes son inapropiadas',
                 estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2024-04-18T09:30:15',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'El nombre incumple con las reglas',
                 estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2024-04-T06:50:15',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'des',
                 estadoNegocio: 'APROBADO'
             }
@@ -229,38 +229,38 @@ db.negocios.insertMany([
         horarios: [
             {
                 dia: 'Lunes',
-                horaInicio: '07:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T07:00:00.000Z')
             },
             {
                 dia: 'Martes',
-                horaInicio: '07:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Miércoles',
-                horaInicio: '07:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Jueves',
-                horaInicio: '07:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Viernes',
-                horaInicio: '07:00',
-                horaFin: '22:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Sábado',
-                horaInicio: '08:00',
-                horaFin: '22:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Domingo',
-                horaInicio: '08:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             }
         ],
         coordenada: {
@@ -274,31 +274,31 @@ db.negocios.insertMany([
         historialRevisiones: [
             {
                 codigoModerador: 'M02',
-                fecha: '2024-08-09T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M02',
-                fecha: '2024-08-10T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Imagenes inapropiadas',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M02',
-                fecha: '2024-08-11T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M02',
-                fecha: '2024-08-12T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Revisión de horarios de atención.',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M02',
-                fecha: '2024-08-13T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             }
@@ -321,73 +321,73 @@ db.negocios.insertMany([
         horarios: [
             {
                 dia: 'Martes',
-                horaInicio: '17:00',
-                horaFin: '22:30'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Miércoles',
-                horaInicio: '17:00',
-                horaFin: '22:30'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Jueves',
-                horaInicio: '17:00',
-                horaFin: '22:30'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Viernes',
-                horaInicio: '17:00',
-                horaFin: '23:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Sábado',
-                horaInicio: '12:00',
-                horaFin: '23:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Domingo',
-                horaInicio: '12:00',
-                horaFin: '22:30'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             }
         ],
         coordenada: {
             latitud: 25.3,
             longitud: 40.4
         },
-        estadoNegocio: 'DENEGADO',
+        estadoNegocio: 'RECHAZADO',
         codigoClientePremium: 'Cliente3',
-        tipoNegocio: 'RESTAURANTE',
+        tipoNegocio: 'OTRO',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
             {
                 codigoModerador: 'M03',
-                fecha: '2024-11-09T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M03',
-                fecha: '2024-11-10T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Revisión de la calidad de las imagenes.',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M03',
-                fecha: '2024-11-11T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Imagenes malas.',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M03',
-                fecha: '2024-11-12T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '.',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M03',
-                fecha: '2024-11-13T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Revisión de la ubicación en el mapa.',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             }
         ],
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio'
@@ -408,38 +408,38 @@ db.negocios.insertMany([
         horarios: [
             {
                 dia: 'Lunes',
-                horaInicio: '09:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Martes',
-                horaInicio: '09:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Miércoles',
-                horaInicio: '09:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Jueves',
-                horaInicio: '09:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Viernes',
-                horaInicio: '09:00',
-                horaFin: '22:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Sábado',
-                horaInicio: '10:00',
-                horaFin: '22:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Domingo',
-                horaInicio: '10:00',
-                horaFin: '20:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             }
         ],
         coordenada: {
@@ -448,36 +448,36 @@ db.negocios.insertMany([
         },
         estadoNegocio: 'APROBADO',
         codigoClientePremium: 'CP04',
-        tipoNegocio: 'TIENDA DE MODA',
+        tipoNegocio: 'OTRO',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
             {
                 codigoModerador: 'M01',
-                fecha: '2025-02-09T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2025-02-10T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Nombre ofensivo',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2025-02-11T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2025-02-12T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Numeros falsos',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M01',
-                fecha: '2025-02-13T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             }
@@ -500,28 +500,28 @@ db.negocios.insertMany([
         horarios: [
             {
                 dia: 'Martes',
-                horaInicio: '06:00',
-                horaFin: '21:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Miércoles',
-                horaInicio: '06:00',
-                horaFin: '21:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Jueves',
-                horaInicio: '06:00',
-                horaFin: '21:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Viernes',
-                horaInicio: '06:00',
-                horaFin: '21:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             },
             {
                 dia: 'Sábado',
-                horaInicio: '08:00',
-                horaFin: '18:00'
+                horaInicio: ISODate('2024-04-14T07:00:00.000Z'),
+                horaFin: ISODate('2024-04-14T12:20:00.000Z')
             }
         ],
         coordenada: {
@@ -530,36 +530,36 @@ db.negocios.insertMany([
         },
         estadoNegocio: 'APROBADO',
         codigoClientePremium: 'CP05',
-        tipoNegocio: 'GIMNASIO',
+        tipoNegocio: 'OTRO',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
             {
                 codigoModerador: 'M05',
-                fecha: '2025-05-09T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M05',
-                fecha: '2025-05-10T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Revisión de equipos y servicios.',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M05',
-                fecha: '2025-05-11T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             },
             {
                 codigoModerador: 'M05',
-                fecha: '2025-05-12T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: 'Actualización de información de contacto.',
-                estadoNegocio: 'DENEGADO'
+                estadoNegocio: 'RECHAZADO'
             },
             {
                 codigoModerador: 'M05',
-                fecha: '2025-05-13T12:30:45',
+                fecha: ISODate("2025-02-13T12:30:45.000Z"),
                 descripcion: '',
                 estadoNegocio: 'APROBADO'
             }
@@ -590,7 +590,7 @@ db.comentarios.insertMany([
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Comentario'
     },
     {
-        _id: 'C04',
+        _id: 'C03',
         calificacion: 4,
         fecha: ISODate('2022-10-15T10:00:00.000Z'),
         codigoCliente: 'Cliente1',

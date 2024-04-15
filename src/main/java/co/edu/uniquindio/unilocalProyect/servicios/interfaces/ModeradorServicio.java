@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.servicios.interfaces;
 
 import co.edu.uniquindio.unilocalProyect.dtos.AprobarNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleNegocioModeradorDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioModeradorDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.RechazarNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 
@@ -13,9 +14,11 @@ public interface ModeradorServicio extends CuentaServicio {
 
     void rechazarNegocio(RechazarNegocioDTO rechazarNegocioDTO) throws Exception;
 
-    List<DetalleNegocioModeradorDTO> filtarPorNombreNegocio(String nombreNegocio) throws Exception;
+    DetalleNegocioModeradorDTO buscarNegocioPorId(String idNegocio) throws Exception;
 
-    List<DetalleNegocioModeradorDTO> filtarNegociosPorNombrePropietario(String nombrePersona) throws Exception;
+    List<ItemNegocioModeradorDTO> filtarPorNombreNegocio(String nombreNegocio) throws Exception;
 
-    List<DetalleNegocioModeradorDTO> filtrarPorEstadoNegocio(ESTADO_NEGOCIO estadoNegocio) throws Exception;
+    List<ItemNegocioModeradorDTO> filtarNegociosPorNombrePropietario(String nombrePersona) throws Exception;
+
+    List<ItemNegocioModeradorDTO> filtrarPorEstadoNegocio(ESTADO_NEGOCIO estadoNegocio) throws Exception;
 }

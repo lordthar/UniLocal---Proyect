@@ -1,13 +1,14 @@
 package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
-import co.edu.uniquindio.unilocalProyect.dtos.ActualizarClienteDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.RegistroClienteDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
+import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
+import co.edu.uniquindio.unilocalProyect.servicios.interfaces.EmailServicio;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class ClienteServicioImp implements ClienteServicio {
 
     private final ClienteRepo clienteRepo;
+    private EmailServicio emailServicio;
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
 
@@ -38,6 +40,7 @@ public class ClienteServicioImp implements ClienteServicio {
         cliente.setFotoPerfil(registroClienteDTO.fotoPerfil());
         cliente.setCiudadResidencia(registroClienteDTO.ciudadRecidencia());
         cliente.setEstadoRegistro(ESTADO_REGISTRO.ACTIVO);
+        cliente.setTipoCliente(TIPO_CLIENTE.NORMAL);
         Cliente clienteGuardado = clienteRepo.save(cliente);
 
         return clienteGuardado.getCodigo();
@@ -81,6 +84,30 @@ public class ClienteServicioImp implements ClienteServicio {
         clienteRepo.save(cliente);
     }
 
+    @Override
+    public void anularSubscripcion(String idCliente) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(idCliente);
+
+        if (optionalCliente.isEmpty()) {
+            throw new Exception("No se encontró al cliente con el ID: " + idCliente);
+        }
+        Cliente cliente = optionalCliente.get();
+        cliente.setTipoCliente(TIPO_CLIENTE.PREMIUM);
+        clienteRepo.save(cliente);
+    }
+
+    @Override
+    public void pagarSuscripcion(String idCliente) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(idCliente);
+
+        if (optionalCliente.isEmpty()) {
+            throw new Exception("No se encontró al cliente con el ID: " + idCliente);
+        }
+        Cliente cliente = optionalCliente.get();
+        cliente.setTipoCliente(TIPO_CLIENTE.NORMAL);
+        clienteRepo.save(cliente);
+    }
+
 
     public DetalleClienteDTO obtenerCliente (String idCuenta) throws Exception {
         Optional<Cliente> optionalCliente = clienteRepo.findById(idCuenta);
@@ -88,8 +115,38 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("No se encontró el cliente a con el id " + idCuenta);
         }
         Cliente cliente = optionalCliente.get();
+        if(cliente.getEstadoRegistro().equals(ESTADO_REGISTRO.INACTIVO)){
+            throw new Exception("El cliente al que intenta buscar no esta activo");
+        }
         return new DetalleClienteDTO(cliente.getCodigo(), cliente.getNombre(),
         cliente.getFotoPerfil(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia());
     }
 
+    @Override
+    public void eliminarCuenta(String idCuenta) throws Exception {
+
+    }
+
+    @Override
+    public void enviarLinkRecuperacion(String email) throws Exception {
+        emailServicio.enviarCorreo(new EmailDTO("Hola, Aqui esta tu link para recuperar tu contraseña","https://localhostejemplo",email));
+    }
+
+    @Override
+    public String cambiarPassword(CambioPasswordDTO cambioPasswordDTO) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(cambioPasswordDTO.id());
+        if (optionalCliente.isEmpty()) {
+            throw new Exception("No se encontró al cliente con el ID: " + cambioPasswordDTO.id());
+        }
+
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode(cambioPasswordDTO.newPassword());
+        Cliente cliente = optionalCliente.get();
+        cliente.setPassword(passwordEncriptada);
+
+        clienteRepo.save(cliente);
+
+        return "Contraseña cambiada exitosamente para el cliente con id:  " + cambioPasswordDTO.id();
+    }
 }

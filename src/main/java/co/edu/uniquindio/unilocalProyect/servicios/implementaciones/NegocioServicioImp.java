@@ -26,6 +26,12 @@ public class NegocioServicioImp implements NegocioServicio {
 
     private final NegocioRepo negocioRepo;
 
+    /**
+     * Crea un negocio, dependiendo de si es premium o no permitira crear mas de un negocio
+     * @param crearNegocioDTO
+     * @return
+     * @throws Exception
+     */
     @Override
     public String crearNegocio(CrearNegocioDTO crearNegocioDTO) throws Exception {
 
@@ -51,10 +57,21 @@ public class NegocioServicioImp implements NegocioServicio {
         return negocioGuardado.getCodigo();
     }
 
+    /**
+     * Verifica si el cliente ya tiene un negocio
+     * @param codigoClient
+     * @return
+     */
     private boolean clienteTieneNegocio(String codigoClient) {
         return negocioRepo.findByCodigoCliente(codigoClient).size() > 1;
     }
 
+    /**
+     * Busca un negocio en base al id del negocio
+     * @param idNegocio
+     * @return Devuelve el DetalleNegocioDTO del negocio si es encontrado
+     * @throws Exception
+     */
     @Override
     public DetalleNegocioDTO buscarNegocio(String idNegocio) throws Exception {
 
@@ -76,10 +93,15 @@ public class NegocioServicioImp implements NegocioServicio {
                 negocio.getCoordenada());
     }
 
+    /**
+     * Actualiza un negocio
+     * @param actualizarNegocioDTO Datos nuevos para la actualizacion
+     * @throws Exception
+     */
     @Override
-    public void actualizarNegocio(ActualizarNegocioDTO actualizarNegocioDTo) throws Exception {
+    public void actualizarNegocio(ActualizarNegocioDTO actualizarNegocioDTO) throws Exception {
 
-        Optional<Negocio> optionalNegocio = negocioRepo.findByCodigoAndEstadoRegistro(actualizarNegocioDTo.idNegocio()
+        Optional<Negocio> optionalNegocio = negocioRepo.findByCodigoAndEstadoRegistro(actualizarNegocioDTO.idNegocio()
                 , ESTADO_REGISTRO.ACTIVO);
 
         if (optionalNegocio.isEmpty()) {
@@ -87,17 +109,22 @@ public class NegocioServicioImp implements NegocioServicio {
         }
 
         Negocio negocio = optionalNegocio.get();
-        negocio.setNombre(actualizarNegocioDTo.nombre());
-        negocio.setDescripcion(actualizarNegocioDTo.descripcion());
-        negocio.setImagenes(actualizarNegocioDTo.imagenes());
-        negocio.setTelefonos(actualizarNegocioDTo.telefonos());
-        negocio.setHorarios(actualizarNegocioDTo.horarios());
-        negocio.setCoordenada(actualizarNegocioDTo.coordenada());
-        negocio.setTipoNegocio(actualizarNegocioDTo.tipoNegocio());
+        negocio.setNombre(actualizarNegocioDTO.nombre());
+        negocio.setDescripcion(actualizarNegocioDTO.descripcion());
+        negocio.setImagenes(actualizarNegocioDTO.imagenes());
+        negocio.setTelefonos(actualizarNegocioDTO.telefonos());
+        negocio.setHorarios(actualizarNegocioDTO.horarios());
+        negocio.setCoordenada(actualizarNegocioDTO.coordenada());
+        negocio.setTipoNegocio(actualizarNegocioDTO.tipoNegocio());
 
         negocioRepo.save(negocio);
     }
 
+    /**
+     * Cambia el estado de un negocio a inactivo
+     * @param idNegocio id por el que se va a buscar el negocio
+     * @throws Exception
+     */
     @Override
     public void eliminarNegocio(String idNegocio) throws Exception {
         Optional<Negocio> optionalNegocio = negocioRepo.findByCodigoAndEstadoRegistro(idNegocio, ESTADO_REGISTRO.ACTIVO);
@@ -112,6 +139,12 @@ public class NegocioServicioImp implements NegocioServicio {
         negocioRepo.save(negocio);
     }
 
+    /**
+     * Filtra los negocios por su nombre
+     * @param nombre nombre por el que se quiere filtrar
+     * @return Devuelve una lista de ItemNegocioDTO
+     * @throws Exception
+     */
     @Override
     public List<ItemNegocioDTO> filtrarPorNombre(String nombre) throws Exception {
         if (nombre.isEmpty()) {
@@ -122,6 +155,12 @@ public class NegocioServicioImp implements NegocioServicio {
         return getNegociosItemDTO(negocios);
     }
 
+    /**
+     * Filtra pot el tipo de negocio
+     * @param tipoNegocio Tipo de negocio por el que se desea filtrar
+     * @return Devuelve una lista de ItemNegocioDto
+     * @throws Exception
+     */
     @Override
     public List<ItemNegocioDTO> filtrarPorTipoNegocio(TIPO_NEGOCIO tipoNegocio) throws Exception {
         if (tipoNegocio == null) {
@@ -132,7 +171,11 @@ public class NegocioServicioImp implements NegocioServicio {
         return getNegociosItemDTO(negocios);
     }
 
-    //Convierte una lista de negocios a una lista de ItemNegocioDTO
+    /**
+     * Convierte una lista de negocios a una lista de ItemNegocioDTO
+     * @param negocios Lista de negocios que se desea transformar
+     * @return Devuelve una lista de ItemNegocioDTO
+     */
     private List<ItemNegocioDTO> getNegociosItemDTO(List<Negocio> negocios) {
         List<ItemNegocioDTO> items = new ArrayList<>();
 

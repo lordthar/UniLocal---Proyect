@@ -8,5 +8,5 @@ public record CambioPasswordDTO(
         @NotBlank @Length(min=8,max=16) String actualPassword,
         @NotBlank String id,
         @NotBlank String token
-        ) {
+) {
 }

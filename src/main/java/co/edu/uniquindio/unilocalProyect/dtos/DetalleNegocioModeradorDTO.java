@@ -7,12 +7,14 @@ import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 
 import java.util.List;
+import java.util.Map;
 
 public record DetalleNegocioModeradorDTO(
+        String codigo,
         String nombre,
         String descripcion,
         String codigoCliente,
-        List<String> imagenes,
+        List<Map> imagenes,
         List<String> telefonos,
         List<Horario> horarios,
         TIPO_NEGOCIO tipoNegocio,

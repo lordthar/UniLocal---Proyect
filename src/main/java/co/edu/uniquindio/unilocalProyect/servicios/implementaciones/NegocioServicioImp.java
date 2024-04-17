@@ -5,18 +5,24 @@ import co.edu.uniquindio.unilocalProyect.dtos.CrearNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
+import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
+import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
+import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.repositorios.NegocioRepo;
+import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ImagenesServicio;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.NegocioServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,6 +31,8 @@ import java.util.Optional;
 public class NegocioServicioImp implements NegocioServicio {
 
     private final NegocioRepo negocioRepo;
+    private final ClienteRepo clienteRepo;
+    private final ImagenesServicio imagenesServicio;
 
     /**
      * Crea un negocio, dependiendo de si es premium o no permitira crear mas de un negocio
@@ -35,16 +43,30 @@ public class NegocioServicioImp implements NegocioServicio {
     @Override
     public String crearNegocio(CrearNegocioDTO crearNegocioDTO) throws Exception {
 
-        if (clienteTieneNegocio(crearNegocioDTO.codigoClient())) {
-            throw new Exception("El cliente ya tiene un negocio");
+        Optional<Cliente> optionalCliente = clienteRepo.findById(crearNegocioDTO.codigoClient());
+
+        if (optionalCliente.isEmpty()) {
+            throw new ResourceNotFoundException("Cliente no encontrado");
         }
+
+        Cliente cliente = optionalCliente.get();
+
+        if (cliente.getTipoCliente() == TIPO_CLIENTE.NORMAL &&
+                cantidadNegociosCliente(crearNegocioDTO.codigoClient()) != 0) {
+            throw new Exception("El cliente ya tiene un negocio");
+        } else if (cliente.getTipoCliente() == TIPO_CLIENTE.PREMIUM &&
+        cantidadNegociosCliente(crearNegocioDTO.codigoClient()) == 4) {
+            throw new Exception("El cliente ya tiene 4 negocios");
+        }
+
+        List<Map> imagenes = subirImagenes(crearNegocioDTO.imagenes());
 
         Negocio negocio = new Negocio();
         negocio.setCodigo("N"+(negocioRepo.count()+1));
         negocio.setNombre(crearNegocioDTO.nombre());
         negocio.setDescripcion(crearNegocioDTO.descipcion());
         negocio.setCodigoCliente(crearNegocioDTO.codigoClient());
-        negocio.setImagenes(crearNegocioDTO.imagenes());
+        negocio.setImagenes(imagenes);
         negocio.setTelefonos(crearNegocioDTO.telefonos());
         negocio.setHorarios(crearNegocioDTO.horarios());
         negocio.setCoordenada(crearNegocioDTO.coordenada());
@@ -58,12 +80,27 @@ public class NegocioServicioImp implements NegocioServicio {
     }
 
     /**
-     * Verifica si el cliente ya tiene un negocio
+     * Sube una lista de imagenes al servicio externo
+     * @param imagenesRaw Lista de imagenes en crudo
+     * @return Devuelve una lista de tipo map, que contiene los datos de las imagenes subidas
+     * @throws Exception
+     */
+    private List<Map> subirImagenes(List<MultipartFile> imagenesRaw) throws Exception {
+        List<Map> imagenes = new ArrayList<>();
+
+        for (MultipartFile imagen : imagenesRaw) {
+            imagenes.add(imagenesServicio.subirImagen(imagen));
+        }
+        return imagenes;
+    }
+
+    /**
+     * Calcula la cantidad de negocios de un cliente
      * @param codigoClient
      * @return
      */
-    private boolean clienteTieneNegocio(String codigoClient) {
-        return negocioRepo.findByCodigoCliente(codigoClient).size() > 1;
+    private int cantidadNegociosCliente(String codigoClient) {
+        return negocioRepo.findByCodigoCliente(codigoClient).size();
     }
 
     /**
@@ -108,10 +145,12 @@ public class NegocioServicioImp implements NegocioServicio {
             throw new ResourceNotFoundException("Negocio no encontrado");
         }
 
+        List<Map> imagenes = subirImagenes(actualizarNegocioDTO.imagenes());
+
         Negocio negocio = optionalNegocio.get();
         negocio.setNombre(actualizarNegocioDTO.nombre());
         negocio.setDescripcion(actualizarNegocioDTO.descripcion());
-        negocio.setImagenes(actualizarNegocioDTO.imagenes());
+        negocio.setImagenes(imagenes);
         negocio.setTelefonos(actualizarNegocioDTO.telefonos());
         negocio.setHorarios(actualizarNegocioDTO.horarios());
         negocio.setCoordenada(actualizarNegocioDTO.coordenada());
@@ -150,7 +189,8 @@ public class NegocioServicioImp implements NegocioServicio {
         if (nombre.isEmpty()) {
             throw new Exception("El nombre es requerido");
         }
-        List<Negocio> negocios = negocioRepo.findByNombreContainingIgnoreCase(nombre);
+        List<Negocio> negocios = negocioRepo.findByNombreContainingIgnoreCaseAndEstadoRegistro(nombre,
+                ESTADO_REGISTRO.ACTIVO);
 
         return getNegociosItemDTO(negocios);
     }

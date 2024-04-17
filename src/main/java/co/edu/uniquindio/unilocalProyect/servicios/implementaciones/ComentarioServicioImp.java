@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
-import co.edu.uniquindio.unilocalProyect.dtos.CrearComentarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.DetalleComentarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.EditarComentarioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Comentario;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
@@ -14,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 @Service
 @Transactional
@@ -24,9 +23,7 @@ public class ComentarioServicioImp implements ComentarioServicio {
     @Override
     public String crearComentario(CrearComentarioDTO crearComentarioDTO) throws Exception {
         Comentario comentario = new Comentario();
-
         comentario.setMensaje(crearComentarioDTO.mensaje());
-        comentario.setRespuesta(crearComentarioDTO.respuesta());
         comentario.setCalificacion(crearComentarioDTO.calificacion());
         comentario.setFecha(crearComentarioDTO.fecha());
         Comentario comentarioGuardado= comentarioRepo.save(comentario);
@@ -43,7 +40,6 @@ public class ComentarioServicioImp implements ComentarioServicio {
         }
         Comentario comentario = comentarioOptional.get();
         comentario.setMensaje(editarComentarioDTO.mensaje());
-        comentario.setRespuesta(editarComentarioDTO.respuesta());
         comentario.setCalificacion(editarComentarioDTO.calificacion());
         comentario.setFecha(editarComentarioDTO.fecha());
 
@@ -72,5 +68,17 @@ public class ComentarioServicioImp implements ComentarioServicio {
         }
         Comentario comentario = comentarioOptional.get();
         return new DetalleComentarioDTO(comentario.getCodigo(), comentario.getMensaje(), comentario.getRespuesta(),comentario.getCalificacion(),comentario.getFecha());
+    }
+
+    @Override
+    public List<ItemComantarioDTO> listarComentarios() {
+        List<Comentario> comentarios = comentarioRepo.findAll();
+
+        List<ItemComantarioDTO> items = new ArrayList<>();
+
+        for (Comentario comentario: comentarios) {
+            items.add(new ItemComantarioDTO(comentario.getMensaje(),comentario.getCalificacion(), comentario.getFecha()));
+        }
+        return items;
     }
 }

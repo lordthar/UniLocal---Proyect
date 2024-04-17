@@ -6,7 +6,7 @@ plugins {
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
-description 'Breve descripción del proyecto'
+description 'Proyecto creado por: Sergio Alejandro Patiño Osorio, Huendy Caicedo T y Miguel Angel Garcia Osorio Para la Materia de Programacion Avanzada'
 
 configurations {
     compileOnly {

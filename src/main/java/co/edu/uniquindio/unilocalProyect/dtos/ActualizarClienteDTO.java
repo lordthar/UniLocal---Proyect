@@ -10,9 +10,9 @@ public record ActualizarClienteDTO(
         @NotBlank @Length(max = 100) String nombre,
         @NotBlank @Length(min = 10) String nickname,
         @NotBlank String fotoPerfil,
-        @NotBlank String ciudadRecidencia,
-        @NotBlank @Email String Email,
-        @NotBlank String password
+        @NotBlank String ciudadRecidencia
+
+
 ) {
 
 }

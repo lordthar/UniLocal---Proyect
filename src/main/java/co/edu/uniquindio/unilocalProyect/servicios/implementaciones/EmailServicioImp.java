@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class EmailServicioImp implements EmailServicio {
+
     private final JavaMailSender javaMailSender;
     @Override
     public void enviarCorreo(EmailDTO emailDTO) throws Exception {

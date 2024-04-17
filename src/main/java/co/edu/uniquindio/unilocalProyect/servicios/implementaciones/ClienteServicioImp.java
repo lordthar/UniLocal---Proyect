@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +23,7 @@ import java.util.Optional;
 public class ClienteServicioImp implements ClienteServicio {
 
     private final ClienteRepo clienteRepo;
-    private EmailServicio emailServicio;
+    private final EmailServicio emailServicio;
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
 
@@ -35,6 +37,7 @@ public class ClienteServicioImp implements ClienteServicio {
 
         Cliente cliente = new Cliente();
         cliente.setNombre(registroClienteDTO.nombre());
+        cliente.setNickname(registroClienteDTO.nickname());
         cliente.setEmail(registroClienteDTO.Email());
         cliente.setPassword(registroClienteDTO.password());
         cliente.setFotoPerfil(registroClienteDTO.fotoPerfil());
@@ -65,21 +68,6 @@ public class ClienteServicioImp implements ClienteServicio {
         cliente.setNombre( actualizarClienteDTO.nombre() );
         cliente.setFotoPerfil( actualizarClienteDTO.fotoPerfil() );
         cliente.setCiudadResidencia( actualizarClienteDTO.ciudadRecidencia());
-        cliente.setEmail( actualizarClienteDTO.Email());
-
-        clienteRepo.save(cliente);
-    }
-
-    @Override
-    public void eliminarCliente (String idCuenta) throws Exception{
-        Optional<Cliente> optionalCliente = clienteRepo.findById(idCuenta);
-
-        if(optionalCliente.isEmpty()){
-            throw new Exception("waos");
-        }
-
-        Cliente cliente = optionalCliente.get();
-        cliente.setEstadoRegistro(ESTADO_REGISTRO.INACTIVO);
 
         clienteRepo.save(cliente);
     }
@@ -123,8 +111,30 @@ public class ClienteServicioImp implements ClienteServicio {
     }
 
     @Override
-    public void eliminarCuenta(String idCuenta) throws Exception {
+    public List<ItemClienteDTO> listarClientes(){
+        List<Cliente> clientes = clienteRepo.findAll();
 
+        List<ItemClienteDTO> items = new ArrayList<>();
+
+        for (Cliente cliente : clientes) {
+            items.add(new ItemClienteDTO(cliente.getNickname(),
+                    cliente.getFotoPerfil(), cliente.getCiudadResidencia(), cliente.getTipoCliente()));
+        }
+        return items;
+    }
+
+    @Override
+    public void eliminarCuenta(String idCuenta) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(idCuenta);
+
+        if(optionalCliente.isEmpty()){
+            throw new Exception("waos");
+        }
+
+        Cliente cliente = optionalCliente.get();
+        cliente.setEstadoRegistro(ESTADO_REGISTRO.INACTIVO);
+
+        clienteRepo.save(cliente);
     }
 
     @Override
@@ -133,7 +143,7 @@ public class ClienteServicioImp implements ClienteServicio {
     }
 
     @Override
-    public String cambiarPassword(CambioPasswordDTO cambioPasswordDTO) throws Exception {
+    public void cambiarPassword(CambioPasswordDTO cambioPasswordDTO) throws Exception {
         Optional<Cliente> optionalCliente = clienteRepo.findById(cambioPasswordDTO.id());
         if (optionalCliente.isEmpty()) {
             throw new Exception("No se encontró al cliente con el ID: " + cambioPasswordDTO.id());
@@ -147,6 +157,5 @@ public class ClienteServicioImp implements ClienteServicio {
 
         clienteRepo.save(cliente);
 
-        return "Contraseña cambiada exitosamente para el cliente con id:  " + cambioPasswordDTO.id();
     }
 }

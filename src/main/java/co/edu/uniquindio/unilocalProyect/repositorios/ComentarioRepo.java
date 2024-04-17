@@ -14,5 +14,9 @@ public interface ComentarioRepo extends MongoRepository<Comentario, String> {
 
     Optional<Comentario>findComentarioByFecha(LocalDateTime fecha);
 
-    Optional<Comentario>findComentarioByCalificacion(String calificacion);
+    Optional<Comentario>findComentarioByCalificacion(int calificacion);
+
+    Optional<Comentario>findComentarioByCodigoCliente(String codigoCliente);
+
+    Optional<Comentario>findComentarioByRespuesta(String respuesta);
 }

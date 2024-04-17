@@ -6,7 +6,7 @@ plugins {
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
-description 'Breve descripción del proyecto'
+description 'Proyecto creado por: Sergio Alejandro Patiño Osorio, Huendy Caicedo T y Miguel Angel Garcia Osorio Para la Materia de Programacion Avanzada'
 
 configurations {
     compileOnly {
@@ -19,12 +19,18 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'com.cloudinary:cloudinary-http45:1.38.0'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.security:spring-security-crypto:6.2.2'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
 }
 
 test {

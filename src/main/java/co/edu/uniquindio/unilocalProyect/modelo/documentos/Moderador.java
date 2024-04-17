@@ -3,9 +3,11 @@ package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Cuenta;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
+@Document("moderadores")
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString

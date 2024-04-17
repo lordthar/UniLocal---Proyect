@@ -2,7 +2,7 @@ package co.edu.uniquindio.unilocalProyect.modelo.entidades;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Horario {
     private String dia;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFin;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
 
 }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 
+import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,4 +21,5 @@ public class Pqrs {
     private String descripcion;
     private String codigoCliente;
     private String codigoNegocio;
+    private ESTADO_REGISTRO estadoPqrs;
 }

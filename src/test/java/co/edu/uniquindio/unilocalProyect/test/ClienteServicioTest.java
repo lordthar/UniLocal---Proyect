@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -19,20 +22,21 @@ public class ClienteServicioTest {
     @Autowired
     private ClienteServicio clienteServicio;
     @Test
-    public void registrarTest() throws Exception {
+    public void registrarClienteTest() throws Exception {
         RegistroClienteDTO registroClienteDTO = new RegistroClienteDTO(
                 "Miguel Angel",
                 "Lantharusus",
-                "Mi foto",
+                new MockMultipartFile("fotoPerfil", "mi_imagen.jpg", "image/jpeg", "contenido_de_imagen".getBytes()),
+                "IM01",
                 "Armenia",
                 "Gwy@email.com",
-                "mipassword"
+                "miPassword"
         );
         String codigo = clienteServicio.registrarCliente(registroClienteDTO);
         Assertions.assertNotNull(codigo);
     }
     @Test
-    public void actualizarTest() throws Exception{
+    public void actualizarClienteTest() throws Exception{
         ActualizarClienteDTO actualizarClienteDTO = new ActualizarClienteDTO(
                 "Cliente1",
                 "Juan",
@@ -55,6 +59,21 @@ public class ClienteServicioTest {
     public void anularSubscripciontest()throws ExecutionException{
 
     }
+
+    @Test
+    public void subirFotoClienteTest() throws Exception {
+        String filePath = "C:\\Users\\migue\\Desktop\\miAmigo.jpg";
+
+        try (InputStream inputStream = new FileInputStream(new File(filePath))) {
+            MockMultipartFile fotoPerfil = new MockMultipartFile("fotoPerfil", "imagen.jpg", "image/jpeg", inputStream);
+
+            clienteServicio.subirFotoCliente(fotoPerfil);
+        }
+    }
+    @Test
+    public void eliminarFotoPerfilTest() throws Exception {
+        clienteServicio.eliminarFotoPerfil("IM01");
+    }
     @Test
     public void listarClientes() {
         List<ItemClienteDTO> lista = clienteServicio.listarClientes();
@@ -62,7 +81,7 @@ public class ClienteServicioTest {
     }
 
     @Test void enviarLinkRecuperacionTest() throws Exception {
-        clienteServicio.enviarLinkRecuperacion("miguelcreed77@gmail.com");
+        clienteServicio.enviarLinkRecuperacion("huendy.caicedot@uqvirtual.edu.co");
     }
     @Test
     public void eliminarCuentaTest() throws Exception{

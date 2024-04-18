@@ -7,6 +7,7 @@ import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
@@ -59,7 +60,7 @@ public class NegocioServicioImp implements NegocioServicio {
             throw new Exception("El cliente ya tiene 4 negocios");
         }
 
-        List<Map> imagenes = subirImagenes(crearNegocioDTO.imagenes());
+        List<Imagen> imagenes = subirImagenes(crearNegocioDTO.imagenes());
 
         Negocio negocio = new Negocio();
         negocio.setCodigo("N"+(negocioRepo.count()+1));
@@ -82,14 +83,19 @@ public class NegocioServicioImp implements NegocioServicio {
     /**
      * Sube una lista de imagenes al servicio externo
      * @param imagenesRaw Lista de imagenes en crudo
-     * @return Devuelve una lista de tipo map, que contiene los datos de las imagenes subidas
+     * @return Devuelve una lista de tipo Imagen, que contiene los datos de las imagenes subidas
      * @throws Exception
      */
-    private List<Map> subirImagenes(List<MultipartFile> imagenesRaw) throws Exception {
-        List<Map> imagenes = new ArrayList<>();
+    private List<Imagen> subirImagenes(List<MultipartFile> imagenesRaw) throws Exception {
+        List<Imagen> imagenes = new ArrayList<>();
 
         for (MultipartFile imagen : imagenesRaw) {
-            imagenes.add(imagenesServicio.subirImagen(imagen));
+            Map<String, String> map = imagenesServicio.subirImagen(imagen);
+            imagenes.add(new Imagen(
+                    map.get("public_id"),
+                    map.get("secure_url"))
+            );
+
         }
         return imagenes;
     }
@@ -145,7 +151,7 @@ public class NegocioServicioImp implements NegocioServicio {
             throw new ResourceNotFoundException("Negocio no encontrado");
         }
 
-        List<Map> imagenes = subirImagenes(actualizarNegocioDTO.imagenes());
+        List<Imagen> imagenes = subirImagenes(actualizarNegocioDTO.imagenes());
 
         Negocio negocio = optionalNegocio.get();
         negocio.setNombre(actualizarNegocioDTO.nombre());

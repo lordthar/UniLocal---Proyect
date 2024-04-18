@@ -3,7 +3,6 @@ db.clientes.insertMany([
         _id: 'Cliente1',
         nickname: 'juanito',
         ciudadResidencia: 'Armenia',
-        fotoPerfil: 'mi foto',
         email: 'juan@email.com',
         password: '$2a$10$PfdFflbMKYDVwiyOhpmjxed1q/oDay8jI0UdUXWfpIq5XEgfABs6u',
         nombre: 'Juan',
@@ -25,7 +24,6 @@ db.clientes.insertMany([
         _id: 'Cliente2',
         nickname: 'maria',
         ciudadResidencia: 'Armenia',
-        fotoPerfil: 'mi foto',
         email: 'maria@email.com',
         password: '$2a$10$VgT0Gf1q2JMLqD6PmR/.e.eUc0VtBv9ZUPy5dljQLbKRbuDl0VPJG',
         nombre: 'Maria',
@@ -51,7 +49,6 @@ db.clientes.insertMany([
         _id: 'Cliente3',
         nickname: 'Pepe',
         ciudadResidencia: 'Armenia',
-        fotoPerfil: 'mi foto',
         email: 'pepe@email.com',
         password: '$2a$10$N16O/jf21U5eUN7wsfkTpewq.ODCVvkjRsCu9t.8bvrUeIAUaKyUK',
         nombre: 'Pepe',
@@ -81,7 +78,6 @@ db.clientes.insertMany([
         _id: 'Cliente4',
         nickname: 'Mario',
         ciudadResidencia: 'Pereira',
-        fotoPerfil: 'mi foto',
         email: 'mario@email.com',
         password: '$2a$10$GNy5K/A8hEQtVzRwQzJxcOR6BAmbRWxUrJXWojnPcyZlExidcJKwS',
         nombre: 'mario',
@@ -111,7 +107,6 @@ db.clientes.insertMany([
         _id: 'Cliente5',
         nickname: 'Laura',
         ciudadResidencia: 'Calarca',
-        fotoPerfil: 'mi foto',
         email: 'laura@email.com',
         password: '$2a$10$Wq.sg9uLP1Iq3e9wEHWn9.DwFFf24.4ZEEveC3DNoA95z3NTqiVZ.',
         nombre: 'laura',
@@ -142,8 +137,10 @@ db.negocios.insertMany([
         descripcion: 'Panaderia con diferentes tipos de delicias, como postres, pasteles entre otros',
         codigoCliente: 'Cliente1',
         imagenes: [
-            'im01',
-            'im02'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'tl01',
@@ -223,8 +220,10 @@ db.negocios.insertMany([
         descripcion: 'Cafetería con ambiente acogedor y variedad de bebidas calientes y refrigerios.',
         codigoCliente: 'Cliente1',
         imagenes: [
-            'imagen03.jpg',
-            'imagen04.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -314,8 +313,10 @@ db.negocios.insertMany([
         descripcion: 'Auténtica pizzería con horno de leña y variedad de ingredientes frescos.',
         codigoCliente: 'Cliente2',
         imagenes: [
-            'imagen05.jpg',
-            'imagen06.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -400,8 +401,10 @@ db.negocios.insertMany([
         descripcion: 'Tienda de ropa con las últimas tendencias y marcas exclusivas.',
         codigoCliente: 'Cliente3',
         imagenes: [
-            'imagen07.jpg',
-            'imagen08.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -491,8 +494,10 @@ db.negocios.insertMany([
         descripcion: 'Gimnasio moderno con equipos de última generación y entrenadores profesionales.',
         codigoCliente: 'Cliente2',
         imagenes: [
-            'imagen09.jpg',
-            'imagen10.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',

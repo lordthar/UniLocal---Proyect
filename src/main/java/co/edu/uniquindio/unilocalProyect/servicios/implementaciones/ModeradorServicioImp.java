@@ -93,10 +93,19 @@ public class ModeradorServicioImp implements ModeradorServicio {
         }
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String passwordEncriptada = passwordEncoder.encode(cambioPasswordDTO.newPassword());
-
         Moderador moderador = moderadorOptional.get();
+
+        if (!passwordEncoder.matches(cambioPasswordDTO.actualPassword(), moderador.getPassword())) {
+            throw new Exception("La contraseña no coincide");
+        }
+        if (passwordEncoder.matches(cambioPasswordDTO.newPassword(), moderador.getPassword())) {
+            throw new Exception("La contraseña no puede ser igual a la anterior");
+        }
+
+        String passwordEncriptada = passwordEncoder.encode(cambioPasswordDTO.newPassword());
         moderador.setPassword(passwordEncriptada);
+
+        moderadorRepo.save(moderador);
     }
 
     /**
@@ -133,13 +142,18 @@ public class ModeradorServicioImp implements ModeradorServicio {
     @Override
     public void rechazarNegocio(RechazarNegocioDTO rechazarNegocioDTO) throws Exception {
 
-        Optional<Negocio> optionalNegocio = negocioRepo.findById(rechazarNegocioDTO.idNegocio());
+        Optional<Negocio> optionalNegocio = negocioRepo.findByCodigoAndEstadoRegistro(rechazarNegocioDTO.idNegocio(),
+                ESTADO_REGISTRO.ACTIVO);
 
         if (optionalNegocio.isEmpty()) {
-            throw new Exception("El negocio no existe");
+            throw new ResourceNotFoundException("Negocio no encontrado");
         }
 
         Negocio negocio = optionalNegocio.get();
+
+        if (negocio.getEstadoNegocio() == ESTADO_NEGOCIO.RECHAZADO) {
+            throw new Exception("El negocio ya esta rechazado");
+        }
 
         HistorialRevision historialRevision = new HistorialRevision(
                 rechazarNegocioDTO.idModerador(),
@@ -148,14 +162,13 @@ public class ModeradorServicioImp implements ModeradorServicio {
                 ESTADO_NEGOCIO.RECHAZADO
         );
         negocio.setEstadoNegocio(ESTADO_NEGOCIO.RECHAZADO);
-        negocio.setEstadoNegocio(ESTADO_NEGOCIO.RECHAZADO);
         negocio.getHistorialRevisiones().add(historialRevision);
 
         negocioRepo.save(negocio);
     }
 
     /**
-     * Busca un negocio por id
+     * Busca un negocio mediante su id
      * @param idNegocio id por el cual se desea buscar el negocio
      * @return Retorna un DetalleNegocioModeradorDTO
      * @throws Exception
@@ -175,7 +188,7 @@ public class ModeradorServicioImp implements ModeradorServicio {
 
         Negocio negocio = optionalNegocio.get();
 
-        return new DetalleNegocioModeradorDTO(negocio.getNombre(), negocio.getDescripcion(),
+        return new DetalleNegocioModeradorDTO(negocio.getCodigo(), negocio.getNombre(), negocio.getDescripcion(),
                 negocio.getCodigoCliente(), negocio.getImagenes(), negocio.getTelefonos(), negocio.getHorarios(),
                 negocio.getTipoNegocio(), negocio.getCoordenada(), negocio.getEstadoRegistro(),
                 negocio.getHistorialRevisiones());
@@ -188,11 +201,12 @@ public class ModeradorServicioImp implements ModeradorServicio {
      * @throws Exception
      */
     @Override
-    public List<ItemNegocioModeradorDTO> filtarPorNombreNegocio(String nombreNegocio) throws Exception {
+    public List<ItemNegocioModeradorDTO> filtrarPorNombreNegocio(String nombreNegocio) throws Exception {
         if (nombreNegocio.isEmpty()) {
             throw new Exception("El nombre del negocio es requerido");
         }
-        List<Negocio> negocios = negocioRepo.findByNombreContainingIgnoreCase(nombreNegocio);
+        List<Negocio> negocios = negocioRepo.findByNombreContainingIgnoreCaseAndEstadoRegistro(nombreNegocio,
+                ESTADO_REGISTRO.ACTIVO);
 
         return getNegociosItemDTO(negocios);
     }
@@ -204,11 +218,11 @@ public class ModeradorServicioImp implements ModeradorServicio {
      * @throws Exception
      */
     @Override
-    public List<ItemNegocioModeradorDTO> filtarNegociosPorNombrePropietario(String nombrePersona) throws Exception {
+    public List<ItemNegocioModeradorDTO> filtrarNegociosPorNombrePropietario(String nombrePersona) throws Exception {
         if (nombrePersona.isEmpty()) {
             throw new Exception("El nombre de la persona es requerido");
         }
-        List<Negocio> negocios = negocioRepo.filtrarPorNombrePropietario(nombrePersona);
+        List<Negocio> negocios = negocioRepo.filtrarPorNombrePropietarioYEstadoRegistroActivo(nombrePersona);
 
         return getNegociosItemDTO(negocios);
     }
@@ -224,7 +238,7 @@ public class ModeradorServicioImp implements ModeradorServicio {
         if (estadoNegocio == null) {
             throw new Exception("El estado negocio es requerido");
         }
-        List<Negocio> negocios = negocioRepo.findByEstadoNegocio(estadoNegocio);
+        List<Negocio> negocios = negocioRepo.findByEstadoNegocioAndEstadoRegistro(estadoNegocio, ESTADO_REGISTRO.ACTIVO);
 
         return getNegociosItemDTO(negocios);
     }

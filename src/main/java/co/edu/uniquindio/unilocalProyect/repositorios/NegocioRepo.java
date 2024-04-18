@@ -18,15 +18,17 @@ public interface NegocioRepo extends MongoRepository<Negocio, String> {
 
     Optional<Negocio> findByCodigoAndEstadoRegistro(String codigoNegocio, ESTADO_REGISTRO estadoRegistro);
 
+    Optional<Negocio> findByCodigoAndEstadoNegocio(String codigoNegocio, ESTADO_REGISTRO estadoRegistro);
+
     Optional<Negocio> findByCodigoAndEstadoRegistroAndEstadoNegocio(String codigoNegocio,
                                                                     ESTADO_REGISTRO estadoRegistro,
                                                                     ESTADO_NEGOCIO estadoNegocio);
 
     List<Negocio> findByCodigoCliente(String codigoPropietario);
 
-    List<Negocio> findByEstadoNegocio(ESTADO_NEGOCIO estadoNegocio);
+    List<Negocio> findByEstadoNegocioAndEstadoRegistro(ESTADO_NEGOCIO estadoNegocio, ESTADO_REGISTRO estadoRegistro);
 
-    List<Negocio> findByNombreContainingIgnoreCase(String nombre);
+    List<Negocio> findByNombreContainingIgnoreCaseAndEstadoRegistro(String nombre, ESTADO_REGISTRO estadoRegistro);
 
     List<Negocio> findByTipoNegocio(TIPO_NEGOCIO tipoNegocio);
 
@@ -36,6 +38,6 @@ public interface NegocioRepo extends MongoRepository<Negocio, String> {
 
     @Aggregation(pipeline = {
             "{$lookup: { from: 'clientes', localField: 'codigoCliente', foreignField: '_id', as: 'cliente' }}",
-            "{$match: { 'cliente.nombre': { $regex: ?0, $options: i} } }" })
-    List<Negocio> filtrarPorNombrePropietario(String nombre);
+            "{$match: { 'cliente.nombre': { $regex: ?0, $options: i}, estadoRegistro: 'ACTIVO' } }" })
+    List<Negocio> filtrarPorNombrePropietarioYEstadoRegistroActivo(String nombre);
 }

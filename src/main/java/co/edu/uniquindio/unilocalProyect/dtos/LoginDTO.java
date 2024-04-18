@@ -6,6 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 public record LoginDTO(
         @NotBlank @Email String email,
-        @NotBlank @Length(max = 10, min = 8) String password
+        @NotBlank @Length(max = 20, min = 8) String password
 ) {
 }

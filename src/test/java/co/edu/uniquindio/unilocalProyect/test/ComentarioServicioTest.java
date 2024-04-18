@@ -49,8 +49,8 @@ public class ComentarioServicioTest {
     }
     @Test
     public void buscarComentarioTest() throws Exception {
-        DetalleComentarioDTO detalleComentarioDTO = comentarioServicio.obtenerComentario("C01");
-        Assertions.assertEquals("Corrijo si estuvo bien el trato en el museo", detalleComentarioDTO.mensaje());
+        DetalleComentarioDTO detalleComentarioDTO = comentarioServicio.obtenerComentario("C02");
+        Assertions.assertEquals("Las pizzas son increíbles, definitivamente volveré.", detalleComentarioDTO.mensaje());
     }
     @Test
     public void eliminarComentarioTest() throws Exception {

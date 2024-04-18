@@ -1,6 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.test;
 
-import co.edu.uniquindio.unilocalProyect.dtos.CrearComentarioDTO;
+import  co.edu.uniquindio.unilocalProyect.dtos.CrearComentarioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleComentarioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.EditarComentarioDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Comentario;

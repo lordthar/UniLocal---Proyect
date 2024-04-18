@@ -28,7 +28,7 @@ public class AutenticacionServicioImp implements AutenticacionServicio {
 
     @Override
     public TokenDTO iniciarSesionCliente(LoginDTO loginDTO) throws Exception {
-        Optional<Cliente> clienteOptional = clienteRepo.findByEmail(loginDTO.email());
+        Optional<Cliente> clienteOptional = clienteRepo.findClienteByEmail(loginDTO.email());
 
         if(clienteOptional.isEmpty()){
             throw new Exception("El correo proporcionado no se encuentra registrado");

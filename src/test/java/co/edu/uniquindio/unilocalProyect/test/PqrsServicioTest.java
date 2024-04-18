@@ -35,28 +35,32 @@ public class PqrsServicioTest {
         Assertions.assertNotNull(pqrs);
     }
 
+    @Test
     public void editarPqrsTest() throws Exception{
         EditarPqrsDTO editarPqrsDTO = new EditarPqrsDTO(
-                "P01",
+                "P05",
                 "Comida fresca",
                 "En el restaurante sirven comida muy rica y fresca siempre",
                 TIPO_PQRS.SUGERENCIA
         );
         pqrsServicio.editarPqrs(editarPqrsDTO);
 
-        Pqrs pqrs = pqrsRepo.findByCodigoPqrs("P01").get();
-        Assertions.assertEquals("P01", pqrs.getCodigoPqrs());
+        Pqrs pqrs = pqrsRepo.findByCodigoPqrs("P05").get();
+        Assertions.assertEquals("P05", pqrs.getCodigoPqrs());
     }
 
+    @Test
     public void buscarPqrsTest() throws Exception{
-        DetallePqrsDTO detallePqrsDTO = pqrsServicio.obtenerPqrs("P01");
+        DetallePqrsDTO detallePqrsDTO = pqrsServicio.obtenerPqrs("P05");
         Assertions.assertEquals("Comida fresca", detallePqrsDTO.titulo());
     }
 
+    @Test
     public void eliminarPqrsTest() throws Exception{
-        pqrsServicio.eliminarPqrs("P01");
+        pqrsServicio.eliminarPqrs("P05");
     }
 
+    @Test
     public void filtrarPorTipoPqrsTest() throws Exception{
         List<ItemPqrsDTO> pqrses = pqrsServicio.filtrarPqrsPorTipo(TIPO_PQRS.SUGERENCIA);
     }

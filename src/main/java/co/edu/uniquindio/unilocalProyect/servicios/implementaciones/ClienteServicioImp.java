@@ -86,7 +86,7 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("No se encontró al cliente con el ID: " + idCliente);
         }
         Cliente cliente = optionalCliente.get();
-        cliente.setTipoCliente(TIPO_CLIENTE.PREMIUM);
+        cliente.setTipoCliente(TIPO_CLIENTE.NORMAL);
         clienteRepo.save(cliente);
     }
 
@@ -98,7 +98,7 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("No se encontró al cliente con el ID: " + idCliente);
         }
         Cliente cliente = optionalCliente.get();
-        cliente.setTipoCliente(TIPO_CLIENTE.NORMAL);
+        cliente.setTipoCliente(TIPO_CLIENTE.PREMIUM);
         clienteRepo.save(cliente);
     }
 

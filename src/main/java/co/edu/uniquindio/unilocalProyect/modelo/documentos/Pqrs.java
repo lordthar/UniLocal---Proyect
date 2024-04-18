@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
-@Document("Pqrs")
+@Document("pqrs")
 public class Pqrs {
     @Id
     @EqualsAndHashCode.Include

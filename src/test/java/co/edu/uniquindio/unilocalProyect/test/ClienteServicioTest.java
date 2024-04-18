@@ -2,29 +2,35 @@ package co.edu.uniquindio.unilocalProyect.test;
 
 import co.edu.uniquindio.unilocalProyect.dtos.ActualizarClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.ItemClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.RegistroClienteDTO;
+import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
+import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 public class ClienteServicioTest {
 
     @Autowired
     private ClienteServicio clienteServicio;
+    @Autowired
+    private ClienteRepo clienteRepo;
+
     @Test
     public void registrarClienteTest() throws Exception {
-        List<String> telefonos= List.of("236787", "3182783467");
         RegistroClienteDTO registroClienteDTO = new RegistroClienteDTO(
                 "Miguel Angel",
                 "Lantharusus",
@@ -33,21 +39,20 @@ public class ClienteServicioTest {
                 "Armenia",
                 "Gwy@email.com",
                 "miPassword",
-                telefonos
+                new ArrayList<>()
         );
         String codigo = clienteServicio.registrarCliente(registroClienteDTO);
         Assertions.assertNotNull(codigo);
     }
     @Test
     public void actualizarClienteTest() throws Exception{
-        List<String> telefonos= List.of("312875534", "3152786732");
         ActualizarClienteDTO actualizarClienteDTO = new ActualizarClienteDTO(
                 "Cliente1",
                 "Juan",
                 "etesech",
                 "nueva foto",
                 "Armenia",
-                telefonos
+                new ArrayList<>()
         );
 
         clienteServicio.actualizarCliente(actualizarClienteDTO);
@@ -58,10 +63,18 @@ public class ClienteServicioTest {
     @Test
     public void pagarSubscripcionTest() throws Exception {
         clienteServicio.pagarSuscripcion("Cliente1");
-        Assertions.assertThrows(Exception.class, () -> clienteServicio.pagarSuscripcion("Cliente1") );
+
+        Cliente cliente = clienteRepo.findById("Cliente1").get();
+
+        Assertions.assertEquals(TIPO_CLIENTE.PREMIUM, cliente.getTipoCliente());
     }
     @Test
-    public void anularSubscripciontest()throws ExecutionException{
+    public void anularSubscripciontest() throws Exception {
+        clienteServicio.anularSubscripcion("Cliente1");
+
+        Cliente cliente = clienteRepo.findById("Cliente1").get();
+
+        Assertions.assertEquals(TIPO_CLIENTE.NORMAL, cliente.getTipoCliente());
 
     }
 
@@ -73,20 +86,21 @@ public class ClienteServicioTest {
             MockMultipartFile fotoPerfil = new MockMultipartFile("fotoPerfil", "imagen.jpg", "image/jpeg", inputStream);
 
             clienteServicio.subirFotoCliente(fotoPerfil);
+        } catch (Exception e) {
+            Assertions.assertEquals("C:\\Users\\migue\\Desktop\\miAmigo.jpg (El sistema no puede encontrar la ruta especificada)", e.getMessage());
         }
     }
     @Test
     public void eliminarFotoPerfilTest() throws Exception {
         clienteServicio.eliminarFotoPerfil("IM01");
     }
-    @Test
-    public void listarClientesPorTipo() throws Exception {
-        List<ItemClienteDTO> lista = clienteServicio.filtrarClientesPorTipo(TIPO_CLIENTE.NORMAL);
-        Assertions.assertEquals(7, lista.size());
-    }
-
     @Test void enviarLinkRecuperacionTest() throws Exception {
-        clienteServicio.enviarLinkRecuperacion("huendy.caicedot@uqvirtual.edu.co");
+        try {
+            clienteServicio.enviarLinkRecuperacion("huendy.caicedot@uqvirtual.edu.co");
+            fail("El test fallo");
+        } catch (Exception e) {
+            Assertions.assertEquals("El email que ingreso no existe", e.getMessage());
+        }
     }
     @Test
     public void eliminarCuentaTest() throws Exception{

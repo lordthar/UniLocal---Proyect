@@ -24,6 +24,7 @@ public class PqrsServicioImp implements PqrsServicio {
     @Override
     public String crearPqrs(CrearPqrsDTO crearPqrsDTO)throws Exception {
         Pqrs pqrs = new Pqrs();
+        pqrs.setCodigoPqrs("P0"+pqrsRepo.count());
         pqrs.setTitulo(crearPqrsDTO.titulo());
         pqrs.setDescripcion(crearPqrsDTO.descripcion());
         pqrs.setTipoPqrs(crearPqrsDTO.tipoPqrs());
@@ -73,7 +74,7 @@ public class PqrsServicioImp implements PqrsServicio {
         }
 
         Pqrs pqrs = pqrsOptional.get();
-        return new DetallePqrsDTO(pqrs.getCodigoPqrs(), pqrs.getTitulo(), pqrs.getDescripcion());
+        return new DetallePqrsDTO(pqrs.getCodigoPqrs(), pqrs.getDescripcion(), pqrs.getTitulo());
     }
 
 

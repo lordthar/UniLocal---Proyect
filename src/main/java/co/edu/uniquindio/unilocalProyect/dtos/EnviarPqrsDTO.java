@@ -1,9 +1,9 @@
 package co.edu.uniquindio.unilocalProyect.dtos;
-import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.Length;
 
-public record DetallePqrsDTO(
+public record EnviarPqrsDTO(
 
+        String codigoNegocio,
+        String codigoCliente,
         String codigoPqrs,
         String descripcion,
         String titulo

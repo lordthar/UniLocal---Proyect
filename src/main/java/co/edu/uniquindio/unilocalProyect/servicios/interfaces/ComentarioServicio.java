@@ -1,9 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.servicios.interfaces;
 
-import co.edu.uniquindio.unilocalProyect.dtos.CrearComentarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.DetalleComentarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.EditarComentarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.ItemComantarioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.*;
 
 import java.util.List;
 
@@ -18,5 +15,9 @@ public interface ComentarioServicio {
     DetalleComentarioDTO obtenerComentario(String idComentario)throws Exception;
 
     List<ItemComantarioDTO> listarComentarios();
+
+    void responderComentario(ResponderComentarioDTO responderComentarioDTO) throws Exception;
+
+
 
 }

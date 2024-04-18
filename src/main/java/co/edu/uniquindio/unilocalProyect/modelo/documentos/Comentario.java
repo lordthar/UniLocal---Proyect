@@ -19,10 +19,11 @@ public class Comentario {
     @EqualsAndHashCode.Include
     private String codigo;
     private int calificacion;
-    private LocalDateTime fecha;
+    private LocalDateTime fechaComentario;
     private String codigoCliente;
     private String codigoNegocio;
     private String mensaje;
     private String respuesta;
+    private LocalDateTime fechaRespuesta;
     private ESTADO_REGISTRO estadoRegistro;
 }

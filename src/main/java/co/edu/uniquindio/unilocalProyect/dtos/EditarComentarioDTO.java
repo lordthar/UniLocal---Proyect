@@ -8,7 +8,7 @@ public record EditarComentarioDTO(
         @NotBlank String codigo,
         @NotBlank String mensaje,
         @NotBlank int calificacion,
-        @NotBlank LocalDateTime fecha
+        @NotBlank LocalDateTime fechaComentario
         ) {
 
 

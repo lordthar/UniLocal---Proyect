@@ -3,7 +3,6 @@ db.clientes.insertMany([
         _id: 'Cliente1',
         nickname: 'juanito',
         ciudadResidencia: 'Armenia',
-        fotoPerfil: 'mi foto',
         email: 'juan@email.com',
         password: '$2a$10$PfdFflbMKYDVwiyOhpmjxed1q/oDay8jI0UdUXWfpIq5XEgfABs6u',
         nombre: 'Juan',
@@ -18,13 +17,13 @@ db.clientes.insertMany([
                 codigoNegocio: 'N02'
             }
         ],
+        tipoCliente: 'PREMIUM',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente'
     },
     {
         _id: 'Cliente2',
         nickname: 'maria',
         ciudadResidencia: 'Armenia',
-        fotoPerfil: 'mi foto',
         email: 'maria@email.com',
         password: '$2a$10$VgT0Gf1q2JMLqD6PmR/.e.eUc0VtBv9ZUPy5dljQLbKRbuDl0VPJG',
         nombre: 'Maria',
@@ -43,13 +42,13 @@ db.clientes.insertMany([
                 codigoNegocio: 'N05'
             }
         ],
+        tipoCliente: 'PREMIUM',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente'
     },
     {
         _id: 'Cliente3',
         nickname: 'Pepe',
         ciudadResidencia: 'Armenia',
-        fotoPerfil: 'mi foto',
         email: 'pepe@email.com',
         password: '$2a$10$N16O/jf21U5eUN7wsfkTpewq.ODCVvkjRsCu9t.8bvrUeIAUaKyUK',
         nombre: 'Pepe',
@@ -72,13 +71,13 @@ db.clientes.insertMany([
                 codigoNegocio: 'N02'
             }
         ],
+        tipoCliente: 'NORMAL',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente'
     },
     {
         _id: 'Cliente4',
         nickname: 'Mario',
         ciudadResidencia: 'Pereira',
-        fotoPerfil: 'mi foto',
         email: 'mario@email.com',
         password: '$2a$10$GNy5K/A8hEQtVzRwQzJxcOR6BAmbRWxUrJXWojnPcyZlExidcJKwS',
         nombre: 'mario',
@@ -101,13 +100,13 @@ db.clientes.insertMany([
                 codigoNegocio: 'N02'
             }
         ],
+        tipoCliente: 'NORMAL',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente'
     },
     {
         _id: 'Cliente5',
         nickname: 'Laura',
         ciudadResidencia: 'Calarca',
-        fotoPerfil: 'mi foto',
         email: 'laura@email.com',
         password: '$2a$10$Wq.sg9uLP1Iq3e9wEHWn9.DwFFf24.4ZEEveC3DNoA95z3NTqiVZ.',
         nombre: 'laura',
@@ -126,6 +125,7 @@ db.clientes.insertMany([
                 codigoNegocio: 'N03'
             }
         ],
+        tipoCliente: 'NORMAL',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente'
     }
 ]);
@@ -137,8 +137,10 @@ db.negocios.insertMany([
         descripcion: 'Panaderia con diferentes tipos de delicias, como postres, pasteles entre otros',
         codigoCliente: 'Cliente1',
         imagenes: [
-            'im01',
-            'im02'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'tl01',
@@ -176,7 +178,6 @@ db.negocios.insertMany([
             longitud: 30.22
         },
         estadoNegocio: 'APROBADO',
-        codigoClientePremium: 'CP01',
         tipoNegocio: 'PANADERIA',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
@@ -219,8 +220,10 @@ db.negocios.insertMany([
         descripcion: 'Cafetería con ambiente acogedor y variedad de bebidas calientes y refrigerios.',
         codigoCliente: 'Cliente1',
         imagenes: [
-            'imagen03.jpg',
-            'imagen04.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -268,7 +271,6 @@ db.negocios.insertMany([
             longitud: 35.3
         },
         estadoNegocio: 'APROBADO',
-        codigoClientePremium: 'CP02',
         tipoNegocio: 'CAFETERIA',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
@@ -311,8 +313,10 @@ db.negocios.insertMany([
         descripcion: 'Auténtica pizzería con horno de leña y variedad de ingredientes frescos.',
         codigoCliente: 'Cliente2',
         imagenes: [
-            'imagen05.jpg',
-            'imagen06.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -355,7 +359,6 @@ db.negocios.insertMany([
             longitud: 40.4
         },
         estadoNegocio: 'RECHAZADO',
-        codigoClientePremium: 'Cliente3',
         tipoNegocio: 'OTRO',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
@@ -398,8 +401,10 @@ db.negocios.insertMany([
         descripcion: 'Tienda de ropa con las últimas tendencias y marcas exclusivas.',
         codigoCliente: 'Cliente3',
         imagenes: [
-            'imagen07.jpg',
-            'imagen08.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -447,7 +452,6 @@ db.negocios.insertMany([
             longitud: 45.35
         },
         estadoNegocio: 'APROBADO',
-        codigoClientePremium: 'CP04',
         tipoNegocio: 'OTRO',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
@@ -490,8 +494,10 @@ db.negocios.insertMany([
         descripcion: 'Gimnasio moderno con equipos de última generación y entrenadores profesionales.',
         codigoCliente: 'Cliente2',
         imagenes: [
-            'imagen09.jpg',
-            'imagen10.jpg'
+            {
+                _id: 'unilocal/rcviuotsuvyas5fooxjx',
+                urlImagen: 'https://res.cloudinary.com/dis01om1b/image/upload/v1713402643/unilocal/rcviuotsuvyas5fooxjx.jpg'
+            }
         ],
         telefonos: [
             'num1',
@@ -529,7 +535,6 @@ db.negocios.insertMany([
             longitud: 50.22
         },
         estadoNegocio: 'APROBADO',
-        codigoClientePremium: 'CP05',
         tipoNegocio: 'OTRO',
         estadoRegistro: 'ACTIVO',
         historialRevisiones: [
@@ -625,15 +630,15 @@ db.moderadores.insertMany([
     {
         _id: 'M01',
         nickname: 'moderador1',
-        password: '$2a$10$QxDlIMeBKnTwl1ZR5ZuKI.QqfiR2Vl5l8yupXOKtLlxqRujzSwP1a',
-        email: 'moderador1@example.com',
+        password: '$2a$10$eV0V2jyOWAJdoMRu/PUYJ.ZZyUBw5QI90isTuZFT9cRqdU5euYuVq',
+        email: 'jakoja5649@etopys.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador'
     },
     {
         _id: 'M02',
         nickname: 'moderador2',
-        password: '$2a$10$6VK6CBgYQW0j/eUWL5C3tuj7gJyXJMDzwmkNbx3MS.MHs/8F1JL4q',
+        password: '$2a$10$171elT/NPONXB.TkIVfRHeEjYstUoYCYfYIygxNILRtKYRRG8z.am',
         email: 'moderador2@example.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador'
@@ -641,7 +646,7 @@ db.moderadores.insertMany([
     {
         _id: 'M03',
         nickname: 'moderador3',
-        password: '$2a$10$2kZCYdeej7abSK9HovZNXe0Uum7n3rHAYCmwm0ZLgRC6fVrImPliW',
+        password: '$2a$10$eqY2xGMLI60XpihX9.fo4e2T1XUXNVfEjZ842FebknK/Tvm0q5BEm',
         email: 'moderador3@example.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador'
@@ -649,7 +654,7 @@ db.moderadores.insertMany([
     {
         _id: 'M04',
         nickname: 'moderador4',
-        password: '$2a$10$HYvEQl96M2of6hPXrxtfiOFEbL8.eYzK7fTx0NnbtxyLPGRm/DwC6',
+        password: '$2a$10$DmnS4NlXqzFsYgiPrSxP7uaNF3d1DYKOG9qOzpw6mrCa6Ht8r5Pfu',
         email: 'moderador4@example.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador'
@@ -657,7 +662,7 @@ db.moderadores.insertMany([
     {
         _id: 'M05',
         nickname: 'moderador5',
-        password: '$2a$10$zEL0n3ImYD.MCb2hMSuTPOx2kjpSyCLam44pbQpSsHCN2Vi1kMZYe',
+        password: '$2a$10$izFmcLMNdxjJhCninbUqBe8mZ6vNtQHUK79MWDoUTmO2S02M5ViM2',
         email: 'moderador5@example.com',
         estadoRegistro: 'ACTIVO',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador'

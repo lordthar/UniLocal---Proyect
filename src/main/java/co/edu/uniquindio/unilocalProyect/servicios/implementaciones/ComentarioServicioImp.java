@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocalProyect.dtos.*;
+import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Comentario;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
@@ -25,7 +26,7 @@ public class ComentarioServicioImp implements ComentarioServicio {
         Comentario comentario = new Comentario();
         comentario.setMensaje(crearComentarioDTO.mensaje());
         comentario.setCalificacion(crearComentarioDTO.calificacion());
-        comentario.setFecha(crearComentarioDTO.fecha());
+        comentario.setFechaComentario(crearComentarioDTO.fechaComentario());
         Comentario comentarioGuardado= comentarioRepo.save(comentario);
 
         return comentarioGuardado.getCodigo();
@@ -41,7 +42,7 @@ public class ComentarioServicioImp implements ComentarioServicio {
         Comentario comentario = comentarioOptional.get();
         comentario.setMensaje(editarComentarioDTO.mensaje());
         comentario.setCalificacion(editarComentarioDTO.calificacion());
-        comentario.setFecha(editarComentarioDTO.fecha());
+        comentario.setFechaComentario(editarComentarioDTO.fechaComentario());
 
         comentarioRepo.save(comentario);
     }
@@ -67,7 +68,7 @@ public class ComentarioServicioImp implements ComentarioServicio {
             throw new Exception("No se encontró el cliente a con el id " + idComentario);
         }
         Comentario comentario = comentarioOptional.get();
-        return new DetalleComentarioDTO(comentario.getCodigo(), comentario.getMensaje(), comentario.getRespuesta(),comentario.getCalificacion(),comentario.getFecha());
+        return new DetalleComentarioDTO(comentario.getCodigo(), comentario.getMensaje(), comentario.getRespuesta(),comentario.getCalificacion(),comentario.getFechaComentario());
     }
 
     @Override
@@ -77,8 +78,20 @@ public class ComentarioServicioImp implements ComentarioServicio {
         List<ItemComantarioDTO> items = new ArrayList<>();
 
         for (Comentario comentario: comentarios) {
-            items.add(new ItemComantarioDTO(comentario.getMensaje(),comentario.getCalificacion(), comentario.getFecha()));
+            items.add(new ItemComantarioDTO(comentario.getMensaje(),comentario.getCalificacion(), comentario.getFechaComentario()));
         }
         return items;
     }
+
+    @Override
+    public void responderComentario(ResponderComentarioDTO responderComentarioDTO) throws Exception {
+        Optional<Comentario> comentarioOptional = comentarioRepo.findById(responderComentarioDTO.idComentario());
+        if(comentarioOptional.isEmpty()){
+            throw new ResourceNotFoundException("El comentario a responder no existe o fue eliminado");
+        }
+        Comentario comentario= comentarioOptional.get();
+        comentario.setRespuesta(responderComentarioDTO.respuesta());
+        comentario.setFechaRespuesta(responderComentarioDTO.fechaRespuesta());
+    }
+
 }

@@ -1,16 +1,19 @@
 package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocalProyect.dtos.*;
+import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.EmailServicio;
+import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ImagenesServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ public class ClienteServicioImp implements ClienteServicio {
 
     private final ClienteRepo clienteRepo;
     private final EmailServicio emailServicio;
+    private final ImagenesServicio imagenesServicio;
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
 
@@ -40,8 +44,9 @@ public class ClienteServicioImp implements ClienteServicio {
         cliente.setNickname(registroClienteDTO.nickname());
         cliente.setEmail(registroClienteDTO.Email());
         cliente.setPassword(registroClienteDTO.password());
-        cliente.setFotoPerfil(registroClienteDTO.fotoPerfil());
+        cliente.setFotoPerfil(String.valueOf(registroClienteDTO.fotoPerfil()));
         cliente.setCiudadResidencia(registroClienteDTO.ciudadRecidencia());
+        cliente.setTelefonos(registroClienteDTO.telefonos());
         cliente.setEstadoRegistro(ESTADO_REGISTRO.ACTIVO);
         cliente.setTipoCliente(TIPO_CLIENTE.NORMAL);
         Cliente clienteGuardado = clienteRepo.save(cliente);
@@ -54,7 +59,7 @@ public class ClienteServicioImp implements ClienteServicio {
     }
 
     private Boolean existeEmail(String email) throws Exception {
-        return clienteRepo.findByEmail(email).isPresent();
+        return clienteRepo.findClienteByEmail(email).isPresent();
     }
 
     @Override
@@ -68,6 +73,7 @@ public class ClienteServicioImp implements ClienteServicio {
         cliente.setNombre( actualizarClienteDTO.nombre() );
         cliente.setFotoPerfil( actualizarClienteDTO.fotoPerfil() );
         cliente.setCiudadResidencia( actualizarClienteDTO.ciudadRecidencia());
+        cliente.setTelefonos((actualizarClienteDTO.telefonos()));
 
         clienteRepo.save(cliente);
     }
@@ -107,13 +113,11 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("El cliente al que intenta buscar no esta activo");
         }
         return new DetalleClienteDTO(cliente.getCodigo(), cliente.getNombre(),
-        cliente.getFotoPerfil(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia());
+        cliente.getFotoPerfil(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia(), cliente.getTelefonos());
     }
 
-    @Override
-    public List<ItemClienteDTO> listarClientes(){
-        List<Cliente> clientes = clienteRepo.findAll();
 
+    private List<ItemClienteDTO> listarClientes(List<Cliente> clientes){
         List<ItemClienteDTO> items = new ArrayList<>();
 
         for (Cliente cliente : clientes) {
@@ -122,6 +126,14 @@ public class ClienteServicioImp implements ClienteServicio {
         }
         return items;
     }
+
+    @Override
+    public List<ItemClienteDTO> filtrarClientesPorTipo(TIPO_CLIENTE tipoCliente) throws Exception {
+        List<Cliente> clienteList = clienteRepo.findClienteByTipoCliente(tipoCliente);
+        return listarClientes(clienteList);
+    }
+
+
 
     @Override
     public void eliminarCuenta(String idCuenta) throws Exception {
@@ -139,6 +151,10 @@ public class ClienteServicioImp implements ClienteServicio {
 
     @Override
     public void enviarLinkRecuperacion(String email) throws Exception {
+        Optional<Cliente> clienteOptional = clienteRepo.findClienteByEmail(email);
+        if(clienteOptional.isEmpty()){
+            throw new ResourceNotFoundException("El email que ingreso no existe");
+        }
         emailServicio.enviarCorreo(new EmailDTO("Hola, Aqui esta tu link para recuperar tu contraseña","https://localhostejemplo",email));
     }
 
@@ -148,14 +164,24 @@ public class ClienteServicioImp implements ClienteServicio {
         if (optionalCliente.isEmpty()) {
             throw new Exception("No se encontró al cliente con el ID: " + cambioPasswordDTO.id());
         }
-
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String passwordEncriptada = passwordEncoder.encode(cambioPasswordDTO.newPassword());
         Cliente cliente = optionalCliente.get();
         cliente.setPassword(passwordEncriptada);
 
         clienteRepo.save(cliente);
-
     }
+
+
+    @Override
+    public void subirFotoCliente(MultipartFile fotoPerfil) throws Exception {
+        imagenesServicio.subirImagen(fotoPerfil);
+    }
+
+    @Override
+    public void eliminarFotoPerfil(String fotoPerfilId) throws Exception {
+        imagenesServicio.eliminarImagen(fotoPerfilId);
+    }
+
+
 }

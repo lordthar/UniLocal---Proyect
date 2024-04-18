@@ -16,9 +16,9 @@ public interface ModeradorServicio extends CuentaServicio {
 
     DetalleNegocioModeradorDTO buscarNegocioPorId(String idNegocio) throws Exception;
 
-    List<ItemNegocioModeradorDTO> filtarPorNombreNegocio(String nombreNegocio) throws Exception;
+    List<ItemNegocioModeradorDTO> filtrarPorNombreNegocio(String nombreNegocio) throws Exception;
 
-    List<ItemNegocioModeradorDTO> filtarNegociosPorNombrePropietario(String nombrePersona) throws Exception;
+    List<ItemNegocioModeradorDTO> filtrarNegociosPorNombrePropietario(String nombrePersona) throws Exception;
 
     List<ItemNegocioModeradorDTO> filtrarPorEstadoNegocio(ESTADO_NEGOCIO estadoNegocio) throws Exception;
 }

@@ -14,7 +14,10 @@ import co.edu.uniquindio.unilocalProyect.servicios.interfaces.NegocioServicio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -32,11 +35,14 @@ public class NegocioServicioTest {
     @Test
     public void crearNegocioTest() throws Exception {
 
+        MultipartFile multipartFile = new MockMultipartFile("img", "Cafeteria",
+                null, new FileInputStream("src/test/resources/cafeteria.jpg"));
+
         CrearNegocioDTO crearNegocioDTO = new CrearNegocioDTO(
                 "El museum",
                 "Historias divertidas",
                 "Cliente4",
-                List.of("Foto"),
+                List.of(multipartFile),
                 List.of("Telefono1"),
                 List.of(new Horario("Lunes", LocalTime.of(6, 15), LocalTime.of(15, 00))),
                 new Coordenada(11.24, 22.223),
@@ -59,6 +65,11 @@ public class NegocioServicioTest {
 
     @Test
     public void actualizarNegocioTest() throws Exception {
+        MultipartFile multipartFile = new MockMultipartFile("img", "Cafeteria",
+                null, new FileInputStream("src/test/resources/cafeteria.jpg"));
+
+
+
         Negocio negocio = negocioRepo.findById("N01").get();
         negocio.setNombre("La panaderia de juan");
 
@@ -66,7 +77,7 @@ public class NegocioServicioTest {
                 negocio.getCodigo(),
                 negocio.getNombre(),
                 negocio.getDescripcion(),
-                negocio.getImagenes(),
+                List.of(multipartFile),
                 negocio.getTelefonos(),
                 negocio.getHorarios(),
                 negocio.getCoordenada(),

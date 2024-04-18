@@ -11,7 +11,7 @@ public record CrearComentarioDTO(
         @NotBlank String codigoNegocio,
         @NotBlank @Length(max=250, min=20) String mensaje,
         @Length(max=5, min =0) int calificacion,
-        @NotBlank LocalDateTime fecha
+        @NotBlank LocalDateTime fechaComentario
 
         ) {
 

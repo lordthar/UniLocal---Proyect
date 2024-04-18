@@ -4,6 +4,7 @@ import co.edu.uniquindio.unilocalProyect.dtos.ActualizarClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.ItemClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.RegistroClienteDTO;
+import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ public class ClienteServicioTest {
     private ClienteServicio clienteServicio;
     @Test
     public void registrarClienteTest() throws Exception {
+        List<String> telefonos= List.of("236787", "3182783467");
         RegistroClienteDTO registroClienteDTO = new RegistroClienteDTO(
                 "Miguel Angel",
                 "Lantharusus",
@@ -30,19 +32,22 @@ public class ClienteServicioTest {
                 "IM01",
                 "Armenia",
                 "Gwy@email.com",
-                "miPassword"
+                "miPassword",
+                telefonos
         );
         String codigo = clienteServicio.registrarCliente(registroClienteDTO);
         Assertions.assertNotNull(codigo);
     }
     @Test
     public void actualizarClienteTest() throws Exception{
+        List<String> telefonos= List.of("312875534", "3152786732");
         ActualizarClienteDTO actualizarClienteDTO = new ActualizarClienteDTO(
                 "Cliente1",
                 "Juan",
                 "etesech",
                 "nueva foto",
-                "Armenia"
+                "Armenia",
+                telefonos
         );
 
         clienteServicio.actualizarCliente(actualizarClienteDTO);
@@ -75,8 +80,8 @@ public class ClienteServicioTest {
         clienteServicio.eliminarFotoPerfil("IM01");
     }
     @Test
-    public void listarClientes() {
-        List<ItemClienteDTO> lista = clienteServicio.listarClientes();
+    public void listarClientesPorTipo() throws Exception {
+        List<ItemClienteDTO> lista = clienteServicio.filtrarClientesPorTipo(TIPO_CLIENTE.NORMAL);
         Assertions.assertEquals(7, lista.size());
     }
 

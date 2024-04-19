@@ -47,7 +47,7 @@ public class ClienteControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 clienteServicio.obtenerCliente(codigo) ) );
     }
-    @GetMapping("/filtrar-tipoCliente")
+    @GetMapping("/filtrar-tipoCliente/{tipoCliente}")
     public ResponseEntity<MensajeDTO<List<ItemClienteDTO>>> filtrarClientesPorTipo(@PathVariable TIPO_CLIENTE tipoCliente) throws Exception {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, clienteServicio.filtrarClientesPorTipo(tipoCliente))
         );
@@ -89,7 +89,7 @@ public class ClienteControlador {
         );
     }
 
-    @PostMapping("/editar-pqrs")
+    @PutMapping("/editar-pqrs")
     public ResponseEntity<MensajeDTO<String>> editarPqrs(@Valid @RequestBody EditarPqrsDTO editarPqrsDTO) throws Exception {
         pqrsServicio.editarPqrs(editarPqrsDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Pqrs actualizado correctamente"));
@@ -109,7 +109,7 @@ public class ClienteControlador {
                 pqrsServicio.obtenerPqrs(codigo)));
     }
 
-    @GetMapping("/filtrar-tipoPqrs")
+    @GetMapping("/filtrar-tipoPqrs/{tipoPqrs}")
     public ResponseEntity<MensajeDTO<List<ItemPqrsDTO>>> filtrarPqrsPorTipo(@PathVariable TIPO_PQRS tipoPqrs) throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, pqrsServicio.filtrarPqrsPorTipo(tipoPqrs))
         );

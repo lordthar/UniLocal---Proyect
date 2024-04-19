@@ -24,6 +24,8 @@ public class ComentarioServicioImp implements ComentarioServicio {
     @Override
     public String crearComentario(CrearComentarioDTO crearComentarioDTO) throws Exception {
         Comentario comentario = new Comentario();
+        comentario.setCodigoCliente(crearComentarioDTO.codigoCliente());
+        comentario.setCodigoNegocio(crearComentarioDTO.codigoNegocio());
         comentario.setMensaje(crearComentarioDTO.mensaje());
         comentario.setCalificacion(crearComentarioDTO.calificacion());
         comentario.setFechaComentario(crearComentarioDTO.fechaComentario());

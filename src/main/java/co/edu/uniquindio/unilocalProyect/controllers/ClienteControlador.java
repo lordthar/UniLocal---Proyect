@@ -42,7 +42,7 @@ public class ClienteControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente eliminado correctamente")
         );
     }
-    @GetMapping("/obtener/{codigo}")
+    @GetMapping("/obtener-Cliente/{codigo}")
     public ResponseEntity<MensajeDTO<DetalleClienteDTO>> obtenerCliente(@PathVariable String codigo) throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 clienteServicio.obtenerCliente(codigo) ) );
@@ -71,7 +71,7 @@ public class ClienteControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Comentario eliminado correctamente")
         );
     }
-    @GetMapping("/obtener/{codigo}")
+    @GetMapping("/obtener-Comentario/{codigo}")
     public ResponseEntity<MensajeDTO<DetalleComentarioDTO>> obtenerComentario(@PathVariable String codigo) throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.obtenerComentario(codigo) ) );
     }
@@ -103,7 +103,7 @@ public class ClienteControlador {
         );
     }
 
-    @GetMapping("/obtener/{codigo}")
+    @GetMapping("/obtener-Pqrs/{codigo}")
     public ResponseEntity<MensajeDTO<DetallePqrsDTO>> obtenerPqrs(@PathVariable String codigo) throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false,
                 pqrsServicio.obtenerPqrs(codigo)));

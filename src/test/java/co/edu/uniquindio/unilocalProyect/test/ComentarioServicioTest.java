@@ -3,6 +3,7 @@ package co.edu.uniquindio.unilocalProyect.test;
 import  co.edu.uniquindio.unilocalProyect.dtos.CrearComentarioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleComentarioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.EditarComentarioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.ItemComantarioDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Comentario;
 import co.edu.uniquindio.unilocalProyect.repositorios.ComentarioRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ComentarioServicio;
@@ -12,7 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 public class ComentarioServicioTest {
@@ -55,6 +58,23 @@ public class ComentarioServicioTest {
     @Test
     public void eliminarComentarioTest() throws Exception {
         comentarioServicio.eliminarComentario("C01");
+    }
+
+    @Test
+    public void filtrarComentarioPorFechaComentarioTest() throws Exception {
+        List<ItemComantarioDTO> comantarios = comentarioServicio.filtrarComentarioPorFecha(LocalDate.of(2023, 9,17).atStartOfDay());
+        Assertions.assertEquals(LocalDate.of(2023,7,12),comantarios.size());
+    }
+    @Test
+    public void filtrarComentarioPorCodigoClienteTest() throws Exception {
+        List<ItemComantarioDTO> comentarios = comentarioServicio.filtrarComentarioPorCliente("Cliente1");
+        Assertions.assertEquals(3,comentarios.size());
+    }
+
+    @Test
+    public void filtrarComentarioPorCalificacion() throws Exception {
+        List<ItemComantarioDTO> cometarioCalificacion = comentarioServicio.filtrarComentarioPorCalificacion(4);
+        Assertions.assertEquals(4,cometarioCalificacion.size());
     }
 
 }

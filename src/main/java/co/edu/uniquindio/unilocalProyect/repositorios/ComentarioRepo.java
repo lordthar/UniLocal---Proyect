@@ -14,14 +14,10 @@ public interface ComentarioRepo extends MongoRepository<Comentario, String> {
 
     Optional<Comentario> findByCodigo(String codigo);
 
-    Optional<Comentario>findComentarioByFechaComentario(LocalDateTime fechaComentario);
-
-
+    List<Comentario>findComentarioByFechaComentario(LocalDateTime fechaComentario);
     //@Aggregation({"{$match:{codigonegocio: ?0}}", "{$lookup:{from:'negocios',localField: 'codigoNegocio', foreignField:'_id', as: 'negocio'}}", "{$unwind:'$negocio'}", "{$group: }", "{$proyect: }")
-    Optional<Comentario>findComentarioByCalificacion(List<Integer> calificaciones);
+    List<Comentario>findComentarioByCalificacion(int calificacion);
+    List<Comentario>findComentarioByCodigoCliente(String codigoCliente);
 
-    Optional<Comentario>findComentarioByCodigoCliente(String codigoCliente);
-
-    Optional<Comentario>findComentarioByRespuesta(String respuesta);
 
 }

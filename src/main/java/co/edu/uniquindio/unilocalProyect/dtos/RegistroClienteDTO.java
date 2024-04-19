@@ -12,7 +12,6 @@ public record RegistroClienteDTO(
         @NotBlank @Length(max = 100) String nombre,
         @NotBlank @Length(min = 10) String nickname,
          MultipartFile fotoPerfil,
-        @NotBlank String fotoPerfilId,
         @NotBlank String ciudadRecidencia,
         @NotBlank @Email String Email,
         @NotBlank @Length(max = 10, min = 8) String password,

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public record ItemComantarioDTO(
         String mensaje,
         int Calificacion,
-        LocalDateTime fechaComentario
+        LocalDateTime fechaComentario,
+        String respuesta
 ) {
 }

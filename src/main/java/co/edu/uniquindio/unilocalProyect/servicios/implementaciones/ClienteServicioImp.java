@@ -133,8 +133,6 @@ public class ClienteServicioImp implements ClienteServicio {
         return listarClientes(clienteList);
     }
 
-
-
     @Override
     public void eliminarCuenta(String idCuenta) throws Exception {
         Optional<Cliente> optionalCliente = clienteRepo.findById(idCuenta);

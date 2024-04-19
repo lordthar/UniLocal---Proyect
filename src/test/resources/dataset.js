@@ -577,7 +577,7 @@ db.comentarios.insertMany([
     {
         _id: 'C01',
         calificacion: 4,
-        fecha: ISODate('2022-10-01T08:00:00.000Z'),
+        fechaComentario: ISODate('2022-10-01T08:00:00.000Z'),
         codigoCliente: 'Cliente1',
         codigoNegocio: 'N02',
         mensaje: 'Excelente ambiente y café delicioso.',
@@ -587,7 +587,7 @@ db.comentarios.insertMany([
     {
         _id: 'C02',
         calificacion: 5,
-        fecha: ISODate('2022-10-05T12:30:00.000Z'),
+        fechaComentario: ISODate('2022-10-05T12:30:00.000Z'),
         codigoCliente: 'Cliente2',
         codigoNegocio: 'N03',
         mensaje: 'Las pizzas son increíbles, definitivamente volveré.',
@@ -597,7 +597,7 @@ db.comentarios.insertMany([
     {
         _id: 'C03',
         calificacion: 4,
-        fecha: ISODate('2022-10-15T10:00:00.000Z'),
+        fechaComentario: ISODate('2022-10-15T10:00:00.000Z'),
         codigoCliente: 'Cliente1',
         codigoNegocio: 'N05',
         mensaje: 'El gimnasio tiene buenos equipos y el personal es muy atento.',
@@ -607,7 +607,7 @@ db.comentarios.insertMany([
     {
         _id: 'C04',
         calificacion: 4,
-        fecha: ISODate('2022-10-15T10:00:00.000Z'),
+        fechaComentario: ISODate('2022-10-15T10:00:00.000Z'),
         codigoCliente: 'Cliente1',
         codigoNegocio: 'N05',
         mensaje: 'El gimnasio tiene buenos equipos y el personal es muy atento.',
@@ -617,7 +617,7 @@ db.comentarios.insertMany([
     {
         _id: 'C05',
         calificacion: 2,
-        fecha: ISODate('2022-10-20T14:20:00.000Z'),
+        fechaComentario: ISODate('2022-10-20T14:20:00.000Z'),
         codigoCliente: 'Cliente2',
         codigoNegocio: 'N02',
         mensaje: 'El café estaba frío y el servicio fue lento.',

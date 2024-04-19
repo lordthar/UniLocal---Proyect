@@ -1,9 +1,11 @@
 package co.edu.uniquindio.unilocalProyect.test;
 
 import co.edu.uniquindio.unilocalProyect.dtos.ActualizarClienteDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.CambioPasswordDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.RegistroClienteDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
+import co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
@@ -19,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
@@ -35,10 +38,9 @@ public class ClienteServicioTest {
                 "Miguel Angel",
                 "Lantharusus",
                 new MockMultipartFile("fotoPerfil", "mi_imagen.jpg", "image/jpeg", "contenido_de_imagen".getBytes()),
-                "IM01",
                 "Armenia",
                 "Gwy@email.com",
-                "miPassword",
+                "mipassword",
                 new ArrayList<>()
         );
         String codigo = clienteServicio.registrarCliente(registroClienteDTO);
@@ -90,6 +92,21 @@ public class ClienteServicioTest {
             Assertions.assertEquals("C:\\Users\\migue\\Desktop\\miAmigo.jpg (El sistema no puede encontrar la ruta especificada)", e.getMessage());
         }
     }
+
+    @Test
+    public void cambiarPasswordTest() throws Exception {
+
+        Cliente cliente = clienteRepo.findById("Cliente1").get();
+        clienteServicio.cambiarPassword(new CambioPasswordDTO(
+                "newPassword",
+                "mipassword",
+                "Cliente1",
+                null
+        ));
+        Cliente clienteActualizado = clienteRepo.findById("Cliente1").get();
+        assertNotEquals(cliente.getPassword(), clienteActualizado.getPassword());
+    }
+
     @Test
     public void eliminarFotoPerfilTest() throws Exception {
         clienteServicio.eliminarFotoPerfil("IM01");

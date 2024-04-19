@@ -60,14 +60,14 @@ public class NegocioServicioImp implements NegocioServicio {
             throw new Exception("El cliente ya tiene 4 negocios");
         }
 
-        List<Imagen> imagenes = subirImagenes(crearNegocioDTO.imagenes());
+//        List<Imagen> imagenes = subirImagenes(crearNegocioDTO.imagenes());
 
         Negocio negocio = new Negocio();
         negocio.setCodigo("N"+(negocioRepo.count()+1));
         negocio.setNombre(crearNegocioDTO.nombre());
         negocio.setDescripcion(crearNegocioDTO.descipcion());
         negocio.setCodigoCliente(crearNegocioDTO.codigoClient());
-        negocio.setImagenes(imagenes);
+        negocio.setImagenes(crearNegocioDTO.imagenes());
         negocio.setTelefonos(crearNegocioDTO.telefonos());
         negocio.setHorarios(crearNegocioDTO.horarios());
         negocio.setCoordenada(crearNegocioDTO.coordenada());
@@ -151,12 +151,12 @@ public class NegocioServicioImp implements NegocioServicio {
             throw new ResourceNotFoundException("Negocio no encontrado");
         }
 
-        List<Imagen> imagenes = subirImagenes(actualizarNegocioDTO.imagenes());
+//        List<Imagen> imagenes = subirImagenes(actualizarNegocioDTO.imagenes());
 
         Negocio negocio = optionalNegocio.get();
         negocio.setNombre(actualizarNegocioDTO.nombre());
         negocio.setDescripcion(actualizarNegocioDTO.descripcion());
-        negocio.setImagenes(imagenes);
+        negocio.setImagenes(actualizarNegocioDTO.imagenes());
         negocio.setTelefonos(actualizarNegocioDTO.telefonos());
         negocio.setHorarios(actualizarNegocioDTO.horarios());
         negocio.setCoordenada(actualizarNegocioDTO.coordenada());

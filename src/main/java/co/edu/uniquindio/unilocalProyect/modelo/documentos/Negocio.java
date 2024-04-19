@@ -31,7 +31,7 @@ public class Negocio {
     private String nombre;
     private String descripcion;
     private String codigoCliente;
-    private List<Imagen> imagenes;
+    private List<String> imagenes;
     private List<String> telefonos;
     private List<Horario> horarios;
     private Coordenada coordenada;

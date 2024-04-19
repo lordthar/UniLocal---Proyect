@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +79,16 @@ public class ComentarioServicioImp implements ComentarioServicio {
         List<ItemComantarioDTO> items = new ArrayList<>();
 
         for (Comentario comentario: comentarios) {
-            items.add(new ItemComantarioDTO(comentario.getMensaje(),comentario.getCalificacion(), comentario.getFechaComentario()));
+            items.add(new ItemComantarioDTO(comentario.getMensaje(),comentario.getCalificacion(), comentario.getFechaComentario(),comentario.getRespuesta()));
+        }
+        return items;
+    }
+
+    private List<ItemComantarioDTO> getListarComentarios(List<Comentario> comentarios){
+        List<ItemComantarioDTO> items = new ArrayList<>();
+
+        for (Comentario comentario : comentarios) {
+            items.add(new ItemComantarioDTO(comentario.getMensaje(),comentario.getCalificacion(), comentario.getFechaComentario(),comentario.getRespuesta()));
         }
         return items;
     }
@@ -93,5 +103,24 @@ public class ComentarioServicioImp implements ComentarioServicio {
         comentario.setRespuesta(responderComentarioDTO.respuesta());
         comentario.setFechaRespuesta(responderComentarioDTO.fechaRespuesta());
     }
+
+    @Override
+    public List<ItemComantarioDTO> filtrarComentarioPorFecha(LocalDateTime fechaComentario) throws Exception {
+        List<Comentario> comentarioList= comentarioRepo.findComentarioByFechaComentario(fechaComentario);
+        return getListarComentarios(comentarioList);
+    }
+
+    @Override
+    public List<ItemComantarioDTO> filtrarComentarioPorCliente(String codigoCliente) throws Exception {
+        List<Comentario> comentarioList= comentarioRepo.findComentarioByCodigoCliente(codigoCliente);
+        return getListarComentarios(comentarioList);
+    }
+
+    @Override
+    public List<ItemComantarioDTO> filtrarComentarioPorCalificacion(int calificacion) throws Exception {
+        List<Comentario> comentarioList= comentarioRepo.findComentarioByCalificacion(calificacion);
+        return getListarComentarios(comentarioList);
+    }
+
 
 }

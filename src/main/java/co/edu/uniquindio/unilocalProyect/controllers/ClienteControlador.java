@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.controllers;
 
 import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
+import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_PQRS;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ComentarioServicio;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -115,4 +117,57 @@ public class ClienteControlador {
         );
     }
 
+    @PostMapping("/crear-negocio")
+    public ResponseEntity<MensajeDTO<String>> crearNegocio(@Valid @RequestBody CrearNegocioDTO crearNegocioDTO)throws Exception{
+        negocioServicio.crearNegocio(crearNegocioDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio Creado Correctamente")
+        );
+    }
+
+    @PutMapping("/editar-negocio")
+    public ResponseEntity<MensajeDTO<String>> editarNegocio(@Valid @RequestBody ActualizarNegocioDTO actualizarNegocioDTO)throws Exception{
+        negocioServicio.actualizarNegocio(actualizarNegocioDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio Editado Con Exito")
+        );
+    }
+
+    @DeleteMapping("/eliminar-negocio")
+    public ResponseEntity<MensajeDTO<String>> eliminarNegocio(@PathVariable String idNegocio)throws Exception{
+        negocioServicio.eliminarNegocio(idNegocio);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio eliminado exitosamente")
+        );
+    }
+
+    @GetMapping("/buscarNegocio/{nombreNegocio}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> buscarNegocioPorNombre(@PathVariable String nombreNegocio)throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false,  negocioServicio.filtrarPorNombre(nombreNegocio))
+        );
+    }
+
+    @GetMapping("/buscarTipoNegocio/{tipoNegocio}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> buscarNegocioPorTipo(@PathVariable TIPO_NEGOCIO tipoNegocio)throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, negocioServicio.filtrarPorTipoNegocio(tipoNegocio))
+        );
+    }
+
+    @GetMapping("/listaComentarios")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> listarComentariosGuest()throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentarios())
+        );
+    }
+    @GetMapping("/filtrar-calificacion")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioCalificacion(int calificacion)throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorCalificacion(calificacion))
+        );
+    }
+    @GetMapping("/filtrar-fechaComentario")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorFecha(LocalDateTime fechaComentario)throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorFecha(fechaComentario))
+        );
+    }
+    @GetMapping("/filtrar-fechaComentario")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorCliente(String idCliente)throws Exception{
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorCliente(idCliente))
+        );
+    }
 }

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.unilocalProyect.repositorios;
 
 import ch.qos.logback.core.net.server.Client;
+import co.edu.uniquindio.unilocalProyect.dtos.ItemClienteDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;

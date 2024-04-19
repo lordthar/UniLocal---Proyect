@@ -1,11 +1,7 @@
 package co.edu.uniquindio.unilocalProyect.test;
 
-import co.edu.uniquindio.unilocalProyect.dtos.ActualizarClienteDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.CambioPasswordDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.DetalleClienteDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.RegistroClienteDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
-import co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
@@ -19,14 +15,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class ClienteServicioTest {
-
     @Autowired
     private ClienteServicio clienteServicio;
     @Autowired
@@ -60,7 +55,7 @@ public class ClienteServicioTest {
         clienteServicio.actualizarCliente(actualizarClienteDTO);
 
         DetalleClienteDTO detalleClienteDTO = clienteServicio.obtenerCliente("Cliente1");
-        Assertions.assertEquals("nueva foto", detalleClienteDTO.fotoPerfil());
+        assertEquals("nueva foto", detalleClienteDTO.fotoPerfil());
     }
     @Test
     public void pagarSubscripcionTest() throws Exception {
@@ -68,7 +63,7 @@ public class ClienteServicioTest {
 
         Cliente cliente = clienteRepo.findById("Cliente1").get();
 
-        Assertions.assertEquals(TIPO_CLIENTE.PREMIUM, cliente.getTipoCliente());
+        assertEquals(TIPO_CLIENTE.PREMIUM, cliente.getTipoCliente());
     }
     @Test
     public void anularSubscripciontest() throws Exception {
@@ -76,7 +71,7 @@ public class ClienteServicioTest {
 
         Cliente cliente = clienteRepo.findById("Cliente1").get();
 
-        Assertions.assertEquals(TIPO_CLIENTE.NORMAL, cliente.getTipoCliente());
+        assertEquals(TIPO_CLIENTE.NORMAL, cliente.getTipoCliente());
 
     }
 
@@ -89,7 +84,7 @@ public class ClienteServicioTest {
 
             clienteServicio.subirFotoCliente(fotoPerfil);
         } catch (Exception e) {
-            Assertions.assertEquals("C:\\Users\\migue\\Desktop\\miAmigo.jpg (El sistema no puede encontrar la ruta especificada)", e.getMessage());
+            assertEquals("C:\\Users\\migue\\Desktop\\miAmigo.jpg (El sistema no puede encontrar la ruta especificada)", e.getMessage());
         }
     }
 
@@ -116,7 +111,7 @@ public class ClienteServicioTest {
             clienteServicio.enviarLinkRecuperacion("huendy.caicedot@uqvirtual.edu.co");
             fail("El test fallo");
         } catch (Exception e) {
-            Assertions.assertEquals("El email que ingreso no existe", e.getMessage());
+            assertEquals("El email que ingreso no existe", e.getMessage());
         }
     }
     @Test
@@ -127,5 +122,16 @@ public class ClienteServicioTest {
         Assertions.assertThrows(Exception.class, () -> clienteServicio.obtenerCliente("Cliente1") );
     }
 
+    @Test
+    public void listarClienteTest(){
+        List<Cliente> clientes = clienteRepo.findAll();
+        assertEquals(5, clientes.size());
+    }
+    @Test
+    public void filtrarPorTipoClienteTest() throws Exception {
+        List<Cliente> cliente = clienteRepo.findClienteByTipoCliente(TIPO_CLIENTE.NORMAL);
 
+        assertEquals(1, cliente.size());
+        assertEquals(TIPO_CLIENTE.NORMAL, cliente.get(0).getTipoCliente());
+    }
 }

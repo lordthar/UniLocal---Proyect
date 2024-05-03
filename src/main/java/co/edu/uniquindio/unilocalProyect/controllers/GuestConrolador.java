@@ -36,18 +36,18 @@ public class GuestConrolador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentarios())
         );
     }
-    @GetMapping("/filtrar-calificacion")
-    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioCalificacion(int calificacion)throws Exception{
+    @GetMapping("/filtrar-calificacion/{calificacion}")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioCalificacion(@PathVariable int calificacion)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorCalificacion(calificacion))
         );
     }
-    @GetMapping("/filtrar-fechaComentario")
-    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorFecha(LocalDateTime fechaComentario)throws Exception{
+    @GetMapping("/filtrar-fechaComentario/{fechaComentario}")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorFecha(@PathVariable LocalDateTime fechaComentario)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorFecha(fechaComentario))
         );
     }
-    @GetMapping("/filtrar-fechaComentario")
-    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorCliente(String idCliente)throws Exception{
+    @GetMapping("/filtrar-comentarioCliente/{idCliente}")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorCliente(@PathVariable String idCliente)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorCliente(idCliente))
         );
     }

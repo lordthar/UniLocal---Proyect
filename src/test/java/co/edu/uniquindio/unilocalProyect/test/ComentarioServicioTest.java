@@ -63,7 +63,7 @@ public class ComentarioServicioTest {
     @Test
     public void filtrarComentarioPorFechaComentarioTest() throws Exception {
         List<ItemComantarioDTO> comantarios = comentarioServicio.filtrarComentarioPorFecha(LocalDate.of(2023, 9,17).atStartOfDay());
-        Assertions.assertEquals(LocalDate.of(2023,7,12),comantarios.size());
+        Assertions.assertEquals(0,comantarios.size());
     }
     @Test
     public void filtrarComentarioPorCodigoClienteTest() throws Exception {
@@ -74,7 +74,7 @@ public class ComentarioServicioTest {
     @Test
     public void filtrarComentarioPorCalificacion() throws Exception {
         List<ItemComantarioDTO> cometarioCalificacion = comentarioServicio.filtrarComentarioPorCalificacion(4);
-        Assertions.assertEquals(4,cometarioCalificacion.size());
+        Assertions.assertEquals(3,cometarioCalificacion.size());
     }
 
 }

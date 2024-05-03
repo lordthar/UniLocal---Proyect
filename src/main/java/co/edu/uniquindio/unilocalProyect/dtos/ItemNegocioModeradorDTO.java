@@ -9,7 +9,7 @@ public record ItemNegocioModeradorDTO(
         String nombre,
         String descripcion,
         String codigoCliente,
-        Imagen portada,
+        String portada,
         ESTADO_NEGOCIO estadoNegocio
 ) {
 }

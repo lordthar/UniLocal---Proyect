@@ -3,6 +3,7 @@ package co.edu.uniquindio.unilocalProyect.controllers;
 import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ModeradorServicio;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/moderadores")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class ModeradorControlador {
 

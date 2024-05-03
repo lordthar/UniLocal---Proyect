@@ -49,7 +49,7 @@ public class ClienteControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false,
                 clienteServicio.obtenerCliente(codigo) ) );
     }
-    @GetMapping("/filtrar-tipoCliente")
+    @GetMapping("/filtrar-tipoCliente/{tipoCliente}")
     public ResponseEntity<MensajeDTO<List<ItemClienteDTO>>> filtrarClientesPorTipo(@PathVariable TIPO_CLIENTE tipoCliente) throws Exception {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, clienteServicio.filtrarClientesPorTipo(tipoCliente))
         );
@@ -91,7 +91,7 @@ public class ClienteControlador {
         );
     }
 
-    @PostMapping("/editar-pqrs")
+    @PutMapping("/editar-pqrs")
     public ResponseEntity<MensajeDTO<String>> editarPqrs(@Valid @RequestBody EditarPqrsDTO editarPqrsDTO) throws Exception {
         pqrsServicio.editarPqrs(editarPqrsDTO);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Pqrs actualizado correctamente"));
@@ -111,7 +111,7 @@ public class ClienteControlador {
                 pqrsServicio.obtenerPqrs(codigo)));
     }
 
-    @GetMapping("/filtrar-tipoPqrs")
+    @GetMapping("/filtrar-tipoPqrs/{tipoPqrs}")
     public ResponseEntity<MensajeDTO<List<ItemPqrsDTO>>> filtrarPqrsPorTipo(@PathVariable TIPO_PQRS tipoPqrs) throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, pqrsServicio.filtrarPqrsPorTipo(tipoPqrs))
         );
@@ -131,7 +131,7 @@ public class ClienteControlador {
         );
     }
 
-    @DeleteMapping("/eliminar-negocio")
+    @DeleteMapping("/eliminar-negocio/{idNegocio}")
     public ResponseEntity<MensajeDTO<String>> eliminarNegocio(@PathVariable String idNegocio)throws Exception{
         negocioServicio.eliminarNegocio(idNegocio);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio eliminado exitosamente")
@@ -155,18 +155,18 @@ public class ClienteControlador {
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentarios())
         );
     }
-    @GetMapping("/filtrar-calificacion")
-    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioCalificacion(int calificacion)throws Exception{
+    @GetMapping("/filtrar-calificacion/{calificacion}")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioCalificacion(@PathVariable int calificacion)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorCalificacion(calificacion))
         );
     }
-    @GetMapping("/filtrar-fechaComentario")
-    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorFecha(LocalDateTime fechaComentario)throws Exception{
+    @GetMapping("/filtrar-fechaComentario/{fechaComentario}")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorFecha(@PathVariable LocalDateTime fechaComentario)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorFecha(fechaComentario))
         );
     }
-    @GetMapping("/filtrar-fechaComentario")
-    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorCliente(String idCliente)throws Exception{
+    @GetMapping("/filtrar-comentarioCliente/{idCliente}")
+    public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioPorCliente(@PathVariable String idCliente)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.filtrarComentarioPorCliente(idCliente))
         );
     }

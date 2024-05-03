@@ -28,9 +28,9 @@ public class FiltroToken extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         // Configuracion para CORS
-        response.addHeader("Acces-Control-Allow-Origin", "*");
-        response.addHeader("Acces-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.addHeader("Acces-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization");
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, Content-Type, Authorization");
 
         if (request.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);

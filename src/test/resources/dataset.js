@@ -676,6 +676,7 @@ db.pqrs.insertMany([
         descripcion: 'Me gustaría sugerir agregar opciones vegetarianas al menú del restaurante.',
         codigoCliente: 'Cliente1',
         codigoNegocio: 'N03',
+        tipoPqrs: 'SUGERENCIA',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Pqrs'
     },
     {
@@ -684,6 +685,7 @@ db.pqrs.insertMany([
         descripcion: 'El servicio en la tienda fue extremadamente lento, esperé más de 30 minutos para ser atendido.',
         codigoCliente: 'Cliente2',
         codigoNegocio: 'N04',
+        tipoPqrs: 'RECLAMO',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Pqrs'
     },
     {
@@ -692,6 +694,7 @@ db.pqrs.insertMany([
         descripcion: 'Me gustaría obtener más información sobre las clases ofrecidas en el gimnasio.',
         codigoCliente: 'Cliente3',
         codigoNegocio: 'N05',
+        tipoPqrs: 'PETICION',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Pqrs'
     },
     {
@@ -700,6 +703,7 @@ db.pqrs.insertMany([
         descripcion: 'Compré un artículo en la tienda y resultó estar defectuoso. Quiero un reembolso.',
         codigoCliente: 'Cliente1',
         codigoNegocio: 'N04',
+        tipoPqrs: 'QUEJA',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Pqrs'
     },
     {
@@ -708,6 +712,7 @@ db.pqrs.insertMany([
         descripcion: 'Quisiera solicitar un cambio en el horario de atención del café para que abra más temprano los fines de semana.',
         codigoCliente: 'Cliente2',
         codigoNegocio: 'N02',
+        tipoPqrs: 'SUGERENCIA',
         _class: 'co.edu.uniquindio.unilocalProyect.modelo.documentos.Pqrs'
     }
 ]);

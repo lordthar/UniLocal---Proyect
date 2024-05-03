@@ -15,7 +15,7 @@ public record DetalleNegocioModeradorDTO(
         String nombre,
         String descripcion,
         String codigoCliente,
-        List<Imagen> imagenes,
+        List<String> imagenes,
         List<String> telefonos,
         List<Horario> horarios,
         TIPO_NEGOCIO tipoNegocio,

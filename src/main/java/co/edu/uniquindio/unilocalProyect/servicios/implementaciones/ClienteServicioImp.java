@@ -31,7 +31,7 @@ public class ClienteServicioImp implements ClienteServicio {
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
 
-        if( existeEmail(registroClienteDTO.Email()) ){
+        if( existeEmail(registroClienteDTO.email()) ){
             throw new Exception("El correo ya se encuentra registrado");
         }
 
@@ -42,7 +42,7 @@ public class ClienteServicioImp implements ClienteServicio {
         Cliente cliente = new Cliente();
         cliente.setNombre(registroClienteDTO.nombre());
         cliente.setNickname(registroClienteDTO.nickname());
-        cliente.setEmail(registroClienteDTO.Email());
+        cliente.setEmail(registroClienteDTO.email());
         cliente.setPassword(registroClienteDTO.password());
         cliente.setFotoPerfil(String.valueOf(registroClienteDTO.fotoPerfil()));
         cliente.setCiudadResidencia(registroClienteDTO.ciudadRecidencia());

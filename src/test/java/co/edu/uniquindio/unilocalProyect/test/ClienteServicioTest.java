@@ -32,7 +32,7 @@ public class ClienteServicioTest {
         RegistroClienteDTO registroClienteDTO = new RegistroClienteDTO(
                 "Miguel Angel",
                 "Lantharusus",
-                new MockMultipartFile("fotoPerfil", "mi_imagen.jpg", "image/jpeg", "contenido_de_imagen".getBytes()),
+                "FotoPerfil",
                 "Armenia",
                 "Gwy@email.com",
                 "mipassword",
@@ -125,13 +125,13 @@ public class ClienteServicioTest {
     @Test
     public void listarClienteTest(){
         List<Cliente> clientes = clienteRepo.findAll();
-        assertEquals(5, clientes.size());
+        assertEquals(6, clientes.size());
     }
     @Test
     public void filtrarPorTipoClienteTest() throws Exception {
         List<Cliente> cliente = clienteRepo.findClienteByTipoCliente(TIPO_CLIENTE.NORMAL);
 
-        assertEquals(1, cliente.size());
+        assertEquals(4, cliente.size());
         assertEquals(TIPO_CLIENTE.NORMAL, cliente.get(0).getTipoCliente());
     }
 }

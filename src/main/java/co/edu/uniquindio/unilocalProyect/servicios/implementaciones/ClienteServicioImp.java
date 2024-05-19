@@ -113,7 +113,8 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("El cliente al que intenta buscar no esta activo");
         }
         return new DetalleClienteDTO(cliente.getCodigo(), cliente.getNombre(),
-        cliente.getFotoPerfil(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia(), cliente.getTelefonos());
+                cliente.getFotoPerfil(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia(),
+                cliente.getTelefonos(), cliente.getTipoCliente());
     }
 
 

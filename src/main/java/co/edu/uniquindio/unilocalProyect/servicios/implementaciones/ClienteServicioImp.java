@@ -67,7 +67,7 @@ public class ClienteServicioImp implements ClienteServicio {
         Optional<Cliente> clienteOptional = clienteRepo.findById(actualizarClienteDTO.id());
 
         if(clienteOptional.isEmpty()){
-            throw new Exception("No existe un cliente con el id : " + actualizarClienteDTO.id());
+            throw new ResourceNotFoundException("No existe un cliente con el id : " + actualizarClienteDTO.id());
         }
         Cliente cliente = clienteOptional.get();
         cliente.setNombre( actualizarClienteDTO.nombre() );

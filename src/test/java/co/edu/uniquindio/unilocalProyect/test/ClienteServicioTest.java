@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.test;
 
 import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ClienteServicio;
@@ -26,6 +27,32 @@ public class ClienteServicioTest {
     private ClienteServicio clienteServicio;
     @Autowired
     private ClienteRepo clienteRepo;
+
+    @Test
+    public void agregarFavorito() throws Exception {
+        clienteServicio.agregarFavorito(new FavoritoDTO(
+                "Cliente3",
+                "N4"
+        ));
+        List<Favorito> favoritos = clienteServicio.listarFavoritos("Cliente1");
+        Assertions.assertEquals(2, favoritos.size());
+    }
+
+    @Test
+    public void eliminarFavorito() throws Exception {
+        clienteServicio.eliminarFavorito(new FavoritoDTO(
+                "Cliente2",
+                "N03"
+        ));
+        List<Favorito> favoritos = clienteServicio.listarFavoritos("Cliente1");
+        Assertions.assertEquals(2, favoritos.size());
+    }
+
+    @Test
+    public void listarFavoritos() throws Exception {
+        List<Favorito> favoritos = clienteServicio.listarFavoritos("Cliente1");
+        Assertions.assertEquals(2, favoritos.size());
+    }
 
     @Test
     public void registrarClienteTest() throws Exception {

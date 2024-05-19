@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface NegocioServicio {
 
+    List<ItemNegocioDTO> listarNegociosFavoritos(String codigoCliente) throws Exception;
+
+    List<TIPO_NEGOCIO> listarTiposNegocio();
+
+    List<ItemNegocioDTO> listarNegocios();
+
     String crearNegocio(CrearNegocioDTO crearNegocioDTO) throws Exception;
 
     DetalleNegocioDTO buscarNegocio(String idNegocio) throws Exception;

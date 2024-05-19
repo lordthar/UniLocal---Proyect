@@ -22,6 +22,16 @@ public class GuestConrolador {
     private final ModeradorServicio moderadorServicio;
     private final NegocioServicio negocioServicio;
 
+    @GetMapping("/listar-tipo-negocios")
+    public ResponseEntity<MensajeDTO<List<TIPO_NEGOCIO>>> listarTipoNegocio() {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarTiposNegocio()));
+    }
+
+    @GetMapping("/listar-negocios")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocios()));
+    }
+
     @GetMapping("/buscarNegocio/{nombreNegocio}")
     public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> buscarNegocioPorNombre(@PathVariable String nombreNegocio)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,  negocioServicio.filtrarPorNombre(nombreNegocio))
@@ -55,7 +65,7 @@ public class GuestConrolador {
         );
     }
 
-    @PutMapping("/recuperacion-cuenta/{email}")
+    @PutMapping("/recuperacion-cuenta-moderador/{email}")
     public ResponseEntity<MensajeDTO<String>> enviarLinkRecuperacionModerador(@PathVariable String email) throws Exception {
         moderadorServicio.enviarLinkRecuperacion(email);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Se ha enviado el link de recuperacion"));

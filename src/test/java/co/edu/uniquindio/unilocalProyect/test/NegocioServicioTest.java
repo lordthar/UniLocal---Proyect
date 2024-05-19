@@ -27,6 +27,24 @@ public class NegocioServicioTest {
     private NegocioServicio negocioServicio;
 
     @Test
+    public void listarNegociosFavoritos() throws Exception {
+        List<ItemNegocioDTO> negocios = negocioServicio.listarNegociosFavoritos("Cliente1");
+        Assertions.assertEquals(1, negocios.size());
+    }
+
+    @Test
+    public void listarTiposNegocio() {
+        List<TIPO_NEGOCIO> tiposNegocio = negocioServicio.listarTiposNegocio();
+        Assertions.assertEquals(9, tiposNegocio.size());
+    }
+
+    @Test
+    public void listarNegociosTest() {
+        List<ItemNegocioDTO> negocios = negocioServicio.listarNegocios();
+        Assertions.assertEquals(2, negocios.size());
+    }
+
+    @Test
     public void crearNegocioTest() throws Exception {
 
         CrearNegocioDTO crearNegocioDTO = new CrearNegocioDTO(

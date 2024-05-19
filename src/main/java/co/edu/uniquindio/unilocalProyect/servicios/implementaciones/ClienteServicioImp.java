@@ -3,6 +3,7 @@ package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,7 @@ public class ClienteServicioImp implements ClienteServicio {
     private final ClienteRepo clienteRepo;
     private final EmailServicio emailServicio;
     private final ImagenesServicio imagenesServicio;
+
     @Override
     public String registrarCliente(RegistroClienteDTO registroClienteDTO) throws Exception {
 
@@ -171,7 +174,6 @@ public class ClienteServicioImp implements ClienteServicio {
         clienteRepo.save(cliente);
     }
 
-
     @Override
     public void subirFotoCliente(MultipartFile fotoPerfil) throws Exception {
         imagenesServicio.subirImagen(fotoPerfil);
@@ -182,5 +184,64 @@ public class ClienteServicioImp implements ClienteServicio {
         imagenesServicio.eliminarImagen(fotoPerfilId);
     }
 
+    @Override
+    public void agregarFavorito(FavoritoDTO favoritoDTO) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(favoritoDTO.codigoCliente());
 
+        if (optionalCliente.isEmpty()) {
+            throw new ResourceNotFoundException("Cliente no encontrado");
+        }
+
+        Cliente cliente = optionalCliente.get();
+
+        if (existeFavorito(cliente.getCodigosFavorito(), favoritoDTO.codigoNegocio())) {
+            throw new Exception("El negocio ya se encuentra en favoritos");
+        }
+
+        cliente.getCodigosFavorito().add(new Favorito(
+                LocalDate.now(),
+                favoritoDTO.codigoNegocio()
+        ));
+
+        clienteRepo.save(cliente);
+    }
+
+    @Override
+    public void eliminarFavorito(FavoritoDTO favoritoDTO) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(favoritoDTO.codigoCliente());
+
+        if (optionalCliente.isEmpty()) {
+            throw new ResourceNotFoundException("Cliente no encontrado");
+        }
+
+        Cliente cliente = optionalCliente.get();
+
+        if (!existeFavorito(cliente.getCodigosFavorito(), favoritoDTO.codigoNegocio())) {
+            throw new Exception("El negocio no se encuentra en favoritos");
+        }
+
+        cliente.getCodigosFavorito().removeIf(favorito -> favorito.getCodigoNegocio().equals(favoritoDTO.codigoNegocio()));
+        clienteRepo.save(cliente);
+    }
+
+    @Override
+    public List<Favorito> listarFavoritos(String codigoCliente) throws Exception {
+        Optional<Cliente> optionalCliente = clienteRepo.findById(codigoCliente);
+
+        if (codigoCliente.isEmpty()) {
+            throw new Exception("El codigo del cliente es necesario");
+        }
+
+        if (optionalCliente.isEmpty()) {
+            throw new ResourceNotFoundException("Cliente no encontrado");
+        }
+
+        Cliente cliente = optionalCliente.get();
+
+        return cliente.getCodigosFavorito();
+    }
+
+    private boolean existeFavorito(List<Favorito> favoritos, String codigoNegocio) {
+        return favoritos.stream().anyMatch(favorito -> favorito.getCodigoNegocio().equals(codigoNegocio));
+    }
 }

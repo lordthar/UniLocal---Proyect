@@ -3,6 +3,7 @@ package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.HistorialRevision;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
@@ -29,6 +30,47 @@ public class NegocioServicioImp implements NegocioServicio {
     private final NegocioRepo negocioRepo;
     private final ClienteServicio clienteServicio;
     private final EmailServicio emailServicio;
+
+    /**
+     * Lista los negocios cuyo id se encuentre en la lista de Favoritos del cliente
+     */
+    @Override
+    public List<ItemNegocioDTO> listarNegociosFavoritos(String codigoCliente) throws Exception {
+        List<Favorito> favoritos = clienteServicio.listarFavoritos(codigoCliente);
+        List<String> codigosNegocios = new ArrayList<>();
+
+        favoritos.forEach(favorito -> codigosNegocios.add(favorito.getCodigoNegocio()));
+
+
+        List<Negocio> negocios = new ArrayList<>();
+        for (String codigo : codigosNegocios) {
+            Optional<Negocio> optionalNegocio = negocioRepo.findById(codigo);
+            if (optionalNegocio.isPresent()) {
+                Negocio negocio = optionalNegocio.get();
+                if (negocio.getEstadoNegocio() == ESTADO_NEGOCIO.APROBADO && negocio.getEstadoRegistro() == ESTADO_REGISTRO.ACTIVO) {
+                    negocios.add(negocio);
+                }
+            }
+        }
+        return getNegociosItemDTO(negocios);
+    }
+
+    /**
+     * Lista los tipos de negocios que hay en el enum TIPO_NEGOCIO
+     */
+    @Override
+    public List<TIPO_NEGOCIO> listarTiposNegocio() {
+        return List.of(TIPO_NEGOCIO.values());
+    }
+
+    /**
+     * Lista los negocios que se encuentran activos y aprobados
+     */
+    @Override
+    public List<ItemNegocioDTO> listarNegocios() {
+        List<Negocio> negocios = negocioRepo.findByEstadoNegocioAndEstadoRegistro(ESTADO_NEGOCIO.APROBADO, ESTADO_REGISTRO.ACTIVO);
+        return getNegociosItemDTO(negocios);
+    }
 
     /**
      * Crea un negocio, dependiendo de si es premium o no permitira crear mas de un negocio
@@ -253,9 +295,7 @@ public class NegocioServicioImp implements NegocioServicio {
 
     /**
      * Filtra los negocios por el nombre del propietario
-     * @param nombrePersona
      * @return Devuelve un lista de ItemNegocioModeradorDTO
-     * @throws Exception
      */
     @Override
     public List<ItemNegocioDTO> buscarPorNombrePropietario(String nombrePersona) throws Exception {
@@ -269,9 +309,7 @@ public class NegocioServicioImp implements NegocioServicio {
 
     /**
      * Filtra los negocios por el estado de negocio que es pasado por parametro
-     * @param estadoNegocio
      * @return Devuelve un lista de ItemNegocioModeradorDTO
-     * @throws Exception
      */
     @Override
     public List<ItemNegocioDTO> filtrarPorEstadoNegocio(ESTADO_NEGOCIO estadoNegocio) throws Exception {

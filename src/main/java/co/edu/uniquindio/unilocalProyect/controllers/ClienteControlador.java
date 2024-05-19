@@ -26,6 +26,29 @@ public class ClienteControlador {
     private final ComentarioServicio comentarioServicio;
     private final PqrsServicio pqrsServicio;
     private final NegocioServicio negocioServicio;
+
+    @PutMapping("/agregar-favorito")
+    public ResponseEntity<MensajeDTO<String>> agregarFavorito(@Valid @RequestBody FavoritoDTO favoritoDTO) throws Exception {
+        clienteServicio.agregarFavorito(favoritoDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Favorito agregado correctamente"));
+    }
+
+    @PutMapping("/eliminar-favorito")
+    public ResponseEntity<MensajeDTO<String>> eliminarFavorito(@Valid @RequestBody FavoritoDTO favoritoDTO) throws Exception {
+        clienteServicio.eliminarFavorito(favoritoDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Favorito eliminado correctamente"));
+    }
+
+    @GetMapping("/listar-negocios-favoritos/{codigoCliente}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegociosFavoritos(@PathVariable String codigoCliente) throws Exception {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegociosFavoritos(codigoCliente)));
+    }
+
+    @GetMapping("/listar-negocios")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocios()));
+    }
+
     @PostMapping("/registrar-cliente")
     public ResponseEntity<MensajeDTO<String>> registrarCliente(@Valid @RequestBody RegistroClienteDTO registroClienteDTO)throws Exception{
         clienteServicio.registrarCliente(registroClienteDTO);

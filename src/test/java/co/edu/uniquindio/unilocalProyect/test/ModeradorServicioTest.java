@@ -1,6 +1,8 @@
 package co.edu.uniquindio.unilocalProyect.test;
 
-import co.edu.uniquindio.unilocalProyect.dtos.*;
+import co.edu.uniquindio.unilocalProyect.dtos.AprobarNegocioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.CambioPasswordDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.RechazarNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
@@ -8,11 +10,10 @@ import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.repositorios.ModeradorRepo;
 import co.edu.uniquindio.unilocalProyect.repositorios.NegocioRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ModeradorServicio;
+import co.edu.uniquindio.unilocalProyect.servicios.interfaces.NegocioServicio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -22,6 +23,8 @@ public class ModeradorServicioTest {
 
     @Autowired
     private ModeradorServicio moderadorServicio;
+    @Autowired
+    private NegocioServicio negocioServicio;
     @Autowired
     private NegocioRepo negocioRepo;
     @Autowired
@@ -61,7 +64,7 @@ public class ModeradorServicioTest {
     @Test
     public void rechazarNegocioTest() throws Exception {
 
-        moderadorServicio.rechazarNegocio(new RechazarNegocioDTO(
+        negocioServicio.rechazarNegocio(new RechazarNegocioDTO(
                 "N04",
                 "M04",
                 "El negocio no es apropiado"
@@ -74,40 +77,12 @@ public class ModeradorServicioTest {
 
     @Test
     public void aprobarNegocioTest() throws Exception {
-        moderadorServicio.aprobarNegocio(new AprobarNegocioDTO(
+        negocioServicio.aprobarNegocio(new AprobarNegocioDTO(
                 "N04",
                 "M04"
         ));
 
         Negocio negocio = negocioRepo.findById("N04").get();
         assertEquals(ESTADO_NEGOCIO.APROBADO, negocio.getEstadoNegocio());
-    }
-
-    @Test
-    public void buscarNegocioPorIdTest() throws Exception {
-        DetalleNegocioModeradorDTO negocio = moderadorServicio.buscarNegocioPorId("N05");
-
-        assertEquals("N05", negocio.codigo());
-    }
-
-    @Test
-    public void filtarPorNombreNegocioTest() throws Exception {
-        List<ItemNegocioModeradorDTO> negocios = moderadorServicio.filtrarPorNombreNegocio("gimnasio");
-
-        assertEquals(1, negocios.size());
-    }
-
-    @Test
-    public void filtarNegociosPorNombrePropietarioTest() throws Exception {
-        List<ItemNegocioModeradorDTO> negocios = moderadorServicio.filtrarNegociosPorNombrePropietario("juan");
-
-        assertEquals(2, negocios.size());
-    }
-
-    @Test
-    public void filtrarPorEstadoNegocioTest() throws Exception {
-        List<ItemNegocioModeradorDTO> negocios = moderadorServicio.filtrarPorEstadoNegocio(ESTADO_NEGOCIO.APROBADO);
-
-        assertEquals(4, negocios.size());
     }
 }

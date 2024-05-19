@@ -1,10 +1,12 @@
 package co.edu.uniquindio.unilocalProyect.controllers;
 
-import co.edu.uniquindio.unilocalProyect.dtos.*;
+import co.edu.uniquindio.unilocalProyect.dtos.ItemComantarioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.MensajeDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ComentarioServicio;
+import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ModeradorServicio;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.NegocioServicio;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,19 @@ import java.util.List;
 @RequestMapping("/api/guests")
 @RequiredArgsConstructor
 public class GuestConrolador {
-    private final NegocioServicio negocioServicio;
     private final ComentarioServicio comentarioServicio;
+    private final ModeradorServicio moderadorServicio;
+    private final NegocioServicio negocioServicio;
+
+    @GetMapping("/listar-tipo-negocios")
+    public ResponseEntity<MensajeDTO<List<TIPO_NEGOCIO>>> listarTipoNegocio() {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarTiposNegocio()));
+    }
+
+    @GetMapping("/listar-negocios")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocios()));
+    }
 
     @GetMapping("/buscarNegocio/{nombreNegocio}")
     public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> buscarNegocioPorNombre(@PathVariable String nombreNegocio)throws Exception{
@@ -52,9 +65,9 @@ public class GuestConrolador {
         );
     }
 
-
-
-
-
-
+    @PutMapping("/recuperacion-cuenta-moderador/{email}")
+    public ResponseEntity<MensajeDTO<String>> enviarLinkRecuperacionModerador(@PathVariable String email) throws Exception {
+        moderadorServicio.enviarLinkRecuperacion(email);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Se ha enviado el link de recuperacion"));
+    }
 }

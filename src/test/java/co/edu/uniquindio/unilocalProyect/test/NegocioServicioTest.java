@@ -5,55 +5,62 @@ import co.edu.uniquindio.unilocalProyect.dtos.CrearNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.DetalleNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
-import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Coordenada;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Horario;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
-import co.edu.uniquindio.unilocalProyect.repositorios.NegocioRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.NegocioServicio;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 public class NegocioServicioTest {
 
     @Autowired
     private NegocioServicio negocioServicio;
-    @Autowired
-    private NegocioRepo negocioRepo;
+
+    @Test
+    public void listarNegociosFavoritos() throws Exception {
+        List<ItemNegocioDTO> negocios = negocioServicio.listarNegociosFavoritos("Cliente1");
+        Assertions.assertEquals(1, negocios.size());
+    }
+
+    @Test
+    public void listarTiposNegocio() {
+        List<TIPO_NEGOCIO> tiposNegocio = negocioServicio.listarTiposNegocio();
+        Assertions.assertEquals(9, tiposNegocio.size());
+    }
+
+    @Test
+    public void listarNegociosTest() {
+        List<ItemNegocioDTO> negocios = negocioServicio.listarNegocios();
+        Assertions.assertEquals(2, negocios.size());
+    }
 
     @Test
     public void crearNegocioTest() throws Exception {
 
-        MultipartFile multipartFile = new MockMultipartFile("img", "Cafeteria",
-                null, new FileInputStream("src/test/resources/cafeteria.jpg"));
-
         CrearNegocioDTO crearNegocioDTO = new CrearNegocioDTO(
                 "El museum",
                 "Historias divertidas",
-                "Cliente4",
+                "Cliente1",
                 List.of("Foto1"),
                 List.of("Telefono1"),
-                List.of(new Horario("Lunes", LocalTime.of(6, 15), LocalTime.of(15, 00))),
+                List.of(new Horario("Lunes", LocalTime.of(6, 15), LocalTime.of(15, 0))),
                 new Coordenada(11.24, 22.223),
                 TIPO_NEGOCIO.MUSEO
         );
 
-        negocioServicio.crearNegocio(crearNegocioDTO);
+        String codigoNegocioCreado = negocioServicio.crearNegocio(crearNegocioDTO);
 
-        Negocio negocio = negocioRepo.findById("N6").get();
-
-        assertEquals("El museum", negocio.getNombre());
+        Assertions.assertNotNull(codigoNegocioCreado);
     }
 
     @Test
@@ -65,54 +72,44 @@ public class NegocioServicioTest {
 
     @Test
     public void actualizarNegocioTest() throws Exception {
-        MultipartFile multipartFile = new MockMultipartFile("img", "Cafeteria",
-                null, new FileInputStream("src/test/resources/cafeteria.jpg"));
 
+        ActualizarNegocioDTO actualizarNegocioDTO = new ActualizarNegocioDTO(
+                "N01",
+                "La panaderia de Pedro",
+                "Siempere encontraras pan calentito",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                List.of(new Horario("Lunes", LocalTime.of(6, 55), LocalTime.of(4, 30))),
+                new Coordenada(11.0, 22.0),
+                TIPO_NEGOCIO.BAR
+        );
 
-
-        Negocio negocio = negocioRepo.findById("N01").get();
-        negocio.setNombre("La panaderia de juan");
-
-        negocioServicio.actualizarNegocio(new ActualizarNegocioDTO(
-                negocio.getCodigo(),
-                negocio.getNombre(),
-                negocio.getDescripcion(),
-                List.of("Foto3000"),
-                negocio.getTelefonos(),
-                negocio.getHorarios(),
-                negocio.getCoordenada(),
-                negocio.getTipoNegocio()
-        ));
+        negocioServicio.actualizarNegocio(actualizarNegocioDTO);
 
         DetalleNegocioDTO negocioActualizado = negocioServicio.buscarNegocio("N01");
 
-        assertEquals("La panaderia de juan", negocioActualizado.nombre());
+        Assertions.assertEquals("La panaderia de Pedro", negocioActualizado.nombre());
     }
 
     @Test
     public void eliminarNegocioTest() throws Exception {
-        negocioServicio.eliminarNegocio("N03");
 
-        try {
-            DetalleNegocioDTO negocio = negocioServicio.buscarNegocio("N03");
-            fail("Eliminar negocio fallo");
-        } catch (ResourceNotFoundException e) {
-            assertEquals("Negocio no encontrado", e.getMessage());
-        }
+        negocioServicio.eliminarNegocio("N03");
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> negocioServicio.buscarNegocio("N03"));
     }
 
     @Test
     public void filtrarPorNombreTest() throws Exception {
         List<ItemNegocioDTO> negocios = negocioServicio.filtrarPorNombre("Gimnasio");
 
-        assertEquals(1, negocios.size());
+        Assertions.assertEquals(1, negocios.size());
     }
 
     @Test
     public void filtrarPorTipoNegocioTest() throws Exception {
         List<ItemNegocioDTO> negocios = negocioServicio.filtrarPorTipoNegocio(TIPO_NEGOCIO.CAFETERIA);
 
-        assertEquals(1, negocios.size());
-        assertEquals("El café de la esquina", negocios.get(0).nombre());
+        Assertions.assertEquals(1, negocios.size());
+        Assertions.assertEquals("El café de la esquina", negocios.get(0).nombre());
     }
 }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.repositorios;
 
+import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Negocio;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
@@ -35,6 +36,8 @@ public interface NegocioRepo extends MongoRepository<Negocio, String> {
     List<Negocio> findByNombreAndHistorialRevisionesCodigoModerador(String nombreNegocio, String codigoModerador);
 
     List<Negocio> findByEstadoNegocioAndHistorialRevisionesCodigoModerador(ESTADO_NEGOCIO estadoNegocio, String historialRevisiones_codigoModerador);
+
+    List<Negocio> findByCodigoClienteAndEstadoNegocioAndEstadoRegistro(String idCliente, ESTADO_NEGOCIO estadoNegocio, ESTADO_REGISTRO estadoRegistro);
 
     @Aggregation(pipeline = {
             "{$lookup: { from: 'clientes', localField: 'codigoCliente', foreignField: '_id', as: 'cliente' }}",

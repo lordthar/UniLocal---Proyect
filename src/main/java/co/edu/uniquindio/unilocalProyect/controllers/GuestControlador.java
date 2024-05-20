@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/guests")
 @RequiredArgsConstructor
-public class GuestConrolador {
+public class GuestControlador {
     private final NegocioServicio negocioServicio;
     private final ComentarioServicio comentarioServicio;
 
@@ -25,16 +25,40 @@ public class GuestConrolador {
         );
     }
 
+    @PostMapping("/crear-negocio")
+    public ResponseEntity<MensajeDTO<String>> crearNegocio(@Valid @RequestBody CrearNegocioDTO crearNegocioDTO)throws Exception{
+        negocioServicio.crearNegocio(crearNegocioDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio Creado Correctamente")
+        );
+    }
+
+    @GetMapping("/listar-negocios-propietario/{idCliente}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocioPropietario(@PathVariable String idCliente) throws Exception {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocioPropietario(idCliente)));
+    }
+
     @GetMapping("/buscarTipoNegocio/{tipoNegocio}")
     public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> buscarNegocioPorTipo(@PathVariable TIPO_NEGOCIO tipoNegocio)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, negocioServicio.filtrarPorTipoNegocio(tipoNegocio))
         );
     }
-
     @GetMapping("/listaComentarios")
     public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> listarComentariosGuest()throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentarios())
         );
+    }
+
+    @GetMapping("/filtrar-por-nombre/{nombre}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> filtrarPorNombre(@PathVariable String nombre) throws Exception {
+            List<ItemNegocioDTO> negocios = negocioServicio.filtrarPorNombre(nombre);
+            return ResponseEntity.ok().body(new MensajeDTO<>(false, negocios));
+    }
+
+    @GetMapping("/listar-negocios/{codigoCliente}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios(@PathVariable String codigoCliente) throws Exception {
+        List<ItemNegocioDTO> negocios = negocioServicio.listarNegocios();
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocios));
+
     }
     @GetMapping("/filtrar-calificacion/{calificacion}")
     public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> filtrarComentarioCalificacion(@PathVariable int calificacion)throws Exception{

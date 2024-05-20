@@ -1,9 +1,7 @@
 package co.edu.uniquindio.unilocalProyect.servicios.interfaces;
 
-import co.edu.uniquindio.unilocalProyect.dtos.ActualizarNegocioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.CrearNegocioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.DetalleNegocioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.*;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 
 import java.util.List;
@@ -21,4 +19,9 @@ public interface NegocioServicio {
     List<ItemNegocioDTO> filtrarPorNombre(String nombre) throws Exception;
 
     List<ItemNegocioDTO> filtrarPorTipoNegocio(TIPO_NEGOCIO tipoNegocio) throws Exception;
+    public List<ItemNegocioDTO> listarNegocios() throws Exception;
+
+    public List<ItemNegocioDTO> listarNegocioPropietario(String idCliente) throws Exception;
+
+    public List<String> recorrerUrl(List<Imagen> listaUrl) throws Exception;
 }

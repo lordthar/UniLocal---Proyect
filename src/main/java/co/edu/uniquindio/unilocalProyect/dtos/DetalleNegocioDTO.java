@@ -5,6 +5,7 @@ import co.edu.uniquindio.unilocalProyect.modelo.entidades.Horario;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record DetalleNegocioDTO(

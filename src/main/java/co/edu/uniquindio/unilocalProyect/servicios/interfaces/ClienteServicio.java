@@ -27,5 +27,4 @@ public interface ClienteServicio extends CuentaServicio{
 
     List<ItemClienteDTO> filtrarClientesPorTipo(TIPO_CLIENTE tipoCliente)throws Exception;
 
-
 }

@@ -26,12 +26,7 @@ public class ClienteControlador {
     private final ComentarioServicio comentarioServicio;
     private final PqrsServicio pqrsServicio;
     private final NegocioServicio negocioServicio;
-    @PostMapping("/registrar-cliente")
-    public ResponseEntity<MensajeDTO<String>> registrarCliente(@Valid @RequestBody RegistroClienteDTO registroClienteDTO)throws Exception{
-        clienteServicio.registrarCliente(registroClienteDTO);
-        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Cliente registrado correctamente")
-        );
-    }
+
     @PutMapping("/editar-perfil")
     public ResponseEntity<MensajeDTO<String>> actualizarCliente(@Valid @RequestBody ActualizarClienteDTO actualizarClienteDTO)throws Exception{
         clienteServicio.actualizarCliente(actualizarClienteDTO);

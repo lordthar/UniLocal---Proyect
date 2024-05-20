@@ -1,5 +1,6 @@
 package co.edu.uniquindio.unilocalProyect.dtos;
 
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;

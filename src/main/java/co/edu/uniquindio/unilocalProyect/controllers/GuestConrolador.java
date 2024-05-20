@@ -23,7 +23,7 @@ public class GuestConrolador {
     private final NegocioServicio negocioServicio;
 
     @GetMapping("/listar-tipo-negocios")
-    public ResponseEntity<MensajeDTO<List<TIPO_NEGOCIO>>> listarTipoNegocio() {
+    public ResponseEntity<MensajeDTO<List<String>>> listarTipoNegocio() {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarTiposNegocio()));
     }
 

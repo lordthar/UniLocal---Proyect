@@ -34,7 +34,7 @@ public class NegocioServicioTest {
 
     @Test
     public void listarTiposNegocio() {
-        List<TIPO_NEGOCIO> tiposNegocio = negocioServicio.listarTiposNegocio();
+        List<String > tiposNegocio = negocioServicio.listarTiposNegocio();
         Assertions.assertEquals(9, tiposNegocio.size());
     }
 

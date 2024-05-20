@@ -10,7 +10,7 @@ public interface NegocioServicio {
 
     List<ItemNegocioDTO> listarNegociosFavoritos(String codigoCliente) throws Exception;
 
-    List<TIPO_NEGOCIO> listarTiposNegocio();
+    List<String> listarTiposNegocio();
 
     List<ItemNegocioDTO> listarNegocios();
 

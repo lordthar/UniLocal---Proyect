@@ -19,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -59,8 +61,8 @@ public class NegocioServicioImp implements NegocioServicio {
      * Lista los tipos de negocios que hay en el enum TIPO_NEGOCIO
      */
     @Override
-    public List<TIPO_NEGOCIO> listarTiposNegocio() {
-        return List.of(TIPO_NEGOCIO.values());
+    public List<String> listarTiposNegocio() {
+        return Arrays.stream(TIPO_NEGOCIO.values()).map(tipoNegocio -> tipoNegocio.toString()).collect(Collectors.toList());
     }
 
     /**

@@ -16,9 +16,9 @@ import java.util.List;
 public record CrearNegocioDTO(
 
         @NotBlank @Length(max = 50) String nombre,
-        @NotBlank String descipcion,
+        @NotBlank String descripcion,
         @NotBlank String codigoCliente,
-        @NotNull Coordenada coordenada,
+        @NotNull Coordenada ubicacion,
         ArrayList<String> imagenes,
         @NotNull TIPO_NEGOCIO tipoNegocio,
         @NotEmpty List<Horario> horarios,

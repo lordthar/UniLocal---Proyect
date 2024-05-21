@@ -61,12 +61,12 @@ public class NegocioServicioImp implements NegocioServicio {
         Negocio negocio = new Negocio();
         negocio.setCodigo("N"+(negocioRepo.count()+1));
         negocio.setNombre(crearNegocioDTO.nombre());
-        negocio.setDescripcion(crearNegocioDTO.descipcion());
+        negocio.setDescripcion(crearNegocioDTO.descripcion());
         negocio.setCodigoCliente(crearNegocioDTO.codigoCliente());
         negocio.setImagenes(almacenarImagenes(crearNegocioDTO.imagenes()));
         negocio.setTelefonos(crearNegocioDTO.telefonos());
         negocio.setHorarios(crearNegocioDTO.horarios());
-        negocio.setCoordenada(crearNegocioDTO.coordenada());
+        negocio.setCoordenada(crearNegocioDTO.ubicacion());
         negocio.setEstadoNegocio(ESTADO_NEGOCIO.PENDIENTE);
         negocio.setTipoNegocio(crearNegocioDTO.tipoNegocio());
         negocio.setEstadoRegistro(ESTADO_REGISTRO.ACTIVO);
@@ -109,7 +109,7 @@ public class NegocioServicioImp implements NegocioServicio {
         ArrayList<Imagen> listaImagen = new ArrayList<>();
 
         for(String item: Imagen){
-            Imagen imagen = new Imagen(item,null);
+            Imagen imagen = new Imagen(null,item);
             listaImagen.add(imagen);
         }
         return listaImagen;
@@ -142,6 +142,7 @@ public class NegocioServicioImp implements NegocioServicio {
                 negocio.getCoordenada());
     }
 
+    @Override
     public List<String> recorrerUrl(List<Imagen> listaUrl) throws Exception{
         List<String> listarImagenes = new ArrayList<>();
 
@@ -237,24 +238,25 @@ public class NegocioServicioImp implements NegocioServicio {
      * @param negocios Lista de negocios que se desea transformar
      * @return Devuelve una lista de ItemNegocioDTO
      */
-    private List<ItemNegocioDTO> getNegociosItemDTO(List<Negocio> negocios) {
+    private List<ItemNegocioDTO> getNegociosItemDTO(List<Negocio> negocios) throws Exception {
         List<ItemNegocioDTO> items = new ArrayList<>();
 
         for (Negocio negocio : negocios) {
             items.add(new ItemNegocioDTO(negocio.getNombre(), negocio.getDescripcion(), negocio.getCodigoCliente(),
+                     recorrerUrl(negocio.getImagenes()),
                      negocio.getTipoNegocio(), negocio.getCoordenada()));
         }
         return items;
     }
 
     @Override
-    public List<ItemNegocioDTO> listarNegocios() {
+    public List<ItemNegocioDTO> listarNegocios() throws Exception {
         List<Negocio> negocios = negocioRepo.findByEstadoNegocioAndEstadoRegistro(ESTADO_NEGOCIO.APROBADO, ESTADO_REGISTRO.ACTIVO);
         return getNegociosItemDTO(negocios);
     }
 
     @Override
-    public List<ItemNegocioDTO> listarNegocioPropietario(String idCliente){
+    public List<ItemNegocioDTO> listarNegocioPropietario(String idCliente) throws Exception {
         List<Negocio> negocioList = negocioRepo.findByCodigoClienteAndEstadoNegocioAndEstadoRegistro(idCliente,ESTADO_NEGOCIO.APROBADO, ESTADO_REGISTRO.ACTIVO);
         return getNegociosItemDTO(negocioList);
     }

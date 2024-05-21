@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,9 +43,9 @@ public class NegocioServicioTest {
                 "El museum",
                 "Historias divertidas",
                 "Cliente4",
-                List.of("Foto1"),
-                List.of("Telefono1"),
-                List.of(new Horario("Lunes", LocalTime.of(6, 15), LocalTime.of(15, 00))),
+                (Coordenada) List.of("Fot|o1"),
+                (ArrayList<String>) List.of("Telefono1"),
+                TIPO_NEGOCIO.MUSEO,
                 new Coordenada(11.24, 22.223),
                 TIPO_NEGOCIO.MUSEO
         );

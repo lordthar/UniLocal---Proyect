@@ -2,21 +2,20 @@ package co.edu.uniquindio.unilocalProyect.dtos;
 
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Coordenada;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Horario;
-import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public record DetalleNegocioDTO(
         String nombre,
-        String descripcio,
+        String descripcion,
         String codigoCliente,
+        String codigoNegocio,
         List<String> imagenes,
         List<String> telefonos,
         List<Horario> horarios,
         TIPO_NEGOCIO tipoNegocio,
-        Coordenada coordenada
+        Coordenada ubicacion
 ) {
 
 }

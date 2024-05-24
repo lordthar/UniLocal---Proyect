@@ -137,7 +137,7 @@ public class NegocioServicioImp implements NegocioServicio {
 
         Negocio negocio = optionalNegocio.get();
 
-        return new DetalleNegocioDTO(negocio.getNombre(), negocio.getDescripcion(), negocio.getCodigoCliente(), recorrerUrl(negocio.getImagenes()),
+        return new DetalleNegocioDTO(negocio.getNombre(), negocio.getDescripcion(),negocio.getCodigoCliente(),negocio.getCodigo() ,recorrerUrl(negocio.getImagenes()),
                  negocio.getTelefonos(), negocio.getHorarios(), negocio.getTipoNegocio(),
                 negocio.getCoordenada());
     }
@@ -242,7 +242,7 @@ public class NegocioServicioImp implements NegocioServicio {
         List<ItemNegocioDTO> items = new ArrayList<>();
 
         for (Negocio negocio : negocios) {
-            items.add(new ItemNegocioDTO(negocio.getNombre(), negocio.getDescripcion(), negocio.getCodigoCliente(),
+            items.add(new ItemNegocioDTO(negocio.getNombre(), negocio.getDescripcion(), negocio.getCodigoCliente(),negocio.getCodigo(),
                      recorrerUrl(negocio.getImagenes()),
                      negocio.getTipoNegocio(), negocio.getCoordenada()));
         }

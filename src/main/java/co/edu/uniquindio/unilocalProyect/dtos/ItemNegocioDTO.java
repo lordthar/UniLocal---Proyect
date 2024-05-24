@@ -11,8 +11,9 @@ public record ItemNegocioDTO(
         String nombre,
         String descripcion,
         String codigoCliente,
+        String codigoNegocio,
         List<String> imagenes,
         TIPO_NEGOCIO tipoNegocio,
-        Coordenada coordenada
+        Coordenada ubicacion
 ) {
 }

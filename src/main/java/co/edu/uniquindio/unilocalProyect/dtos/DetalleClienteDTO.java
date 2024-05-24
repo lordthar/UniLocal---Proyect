@@ -4,8 +4,9 @@ import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 
 import java.util.List;
 
-public record DetalleClienteDTO(
-        String codigo,
+public record
+DetalleClienteDTO(
+        String codigoCliente,
         String nombre,
         String fotoPerfil,
         String nickname,

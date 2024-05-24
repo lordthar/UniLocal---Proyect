@@ -15,6 +15,6 @@ public record ItemNegocioDTO(
         List<Imagen> imagenes,
         ESTADO_NEGOCIO estadoNegocio,
         TIPO_NEGOCIO tipoNegocio,
-        Coordenada coordenada
+        Coordenada ubicacion
 ) {
 }

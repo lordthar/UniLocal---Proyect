@@ -82,7 +82,7 @@ public class ClienteServicioImp implements ClienteServicio {
         }
         Cliente cliente = clienteOptional.get();
         cliente.setNombre( actualizarClienteDTO.nombre() );
-        cliente.setFotoPerfil(new Imagen(actualizarClienteDTO.fotoPerfil(), null)  );
+        cliente.setFotoPerfil(new Imagen(null, actualizarClienteDTO.fotoPerfil()));
         cliente.setCiudadResidencia( actualizarClienteDTO.ciudadRecidencia());
         cliente.setTelefonos((actualizarClienteDTO.telefonos()));
 

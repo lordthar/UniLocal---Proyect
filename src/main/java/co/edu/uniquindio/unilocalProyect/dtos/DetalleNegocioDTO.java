@@ -11,7 +11,7 @@ import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 import java.util.List;
 
 public record DetalleNegocioDTO(
-        String codigo,
+        String codigoNegocio,
         String nombre,
         String descripcion,
         String codigoCliente,
@@ -19,7 +19,7 @@ public record DetalleNegocioDTO(
         List<String> telefonos,
         List<Horario> horarios,
         TIPO_NEGOCIO tipoNegocio,
-        Coordenada coordenada,
+        Coordenada ubicacion,
         ESTADO_REGISTRO estadoRegistro,
         ESTADO_NEGOCIO estadoNegocio,
         List<HistorialRevision> historialRevisiones

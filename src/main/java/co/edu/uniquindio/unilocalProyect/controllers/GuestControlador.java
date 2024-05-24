@@ -67,12 +67,6 @@ public class GuestControlador {
             return ResponseEntity.ok().body(new MensajeDTO<>(false, negocios));
     }
 
-    @GetMapping("/listar-negocios")
-    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() throws Exception {
-        List<ItemNegocioDTO> negocios = negocioServicio.listarNegocios();
-        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocios));
-    }
-
     @PutMapping("/editar-negocio")
     public ResponseEntity<MensajeDTO<String>> editarNegocio(@Valid @RequestBody ActualizarNegocioDTO actualizarNegocioDTO)throws Exception{
         negocioServicio.actualizarNegocio(actualizarNegocioDTO);

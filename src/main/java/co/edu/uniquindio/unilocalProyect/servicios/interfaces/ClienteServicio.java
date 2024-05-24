@@ -28,4 +28,5 @@ public interface ClienteServicio extends CuentaServicio{
     void eliminarFotoPerfil(String fotoPerfil)throws Exception;
 
     List<ItemClienteDTO> filtrarClientesPorTipo(TIPO_CLIENTE tipoCliente)throws Exception;
+
 }

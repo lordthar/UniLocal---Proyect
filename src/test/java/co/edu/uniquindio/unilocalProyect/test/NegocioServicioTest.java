@@ -50,10 +50,10 @@ public class NegocioServicioTest {
         CrearNegocioDTO crearNegocioDTO = new CrearNegocioDTO(
                 "El museum",
                 "Historias divertidas",
-                "Cliente1",
-                List.of("Foto1"),
-                List.of("Telefono1"),
-                List.of(new Horario("Lunes", LocalTime.of(6, 15), LocalTime.of(15, 0))),
+                "Cliente4",
+                (Coordenada) List.of("Fot|o1"),
+                (ArrayList<String>) List.of("Telefono1"),
+                TIPO_NEGOCIO.MUSEO,
                 new Coordenada(11.24, 22.223),
                 TIPO_NEGOCIO.MUSEO
         );

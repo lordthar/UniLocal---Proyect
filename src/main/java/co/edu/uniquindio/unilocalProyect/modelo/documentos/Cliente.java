@@ -2,6 +2,7 @@ package co.edu.uniquindio.unilocalProyect.modelo.documentos;
 
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Cuenta;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -22,9 +23,8 @@ public class Cliente extends Cuenta implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
-
     private String nombre;
-    private String fotoPerfil;
+    private Imagen fotoPerfil;
     private String ciudadResidencia;
     private List<String> telefonos;
     private List<Favorito> codigosFavorito;

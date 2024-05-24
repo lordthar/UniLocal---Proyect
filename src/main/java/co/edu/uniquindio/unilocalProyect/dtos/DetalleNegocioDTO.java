@@ -6,6 +6,7 @@ import co.edu.uniquindio.unilocalProyect.modelo.entidades.Horario;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record DetalleNegocioDTO(

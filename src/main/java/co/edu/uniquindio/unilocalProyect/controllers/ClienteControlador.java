@@ -27,6 +27,7 @@ public class ClienteControlador {
     private final PqrsServicio pqrsServicio;
     private final NegocioServicio negocioServicio;
 
+
     @PutMapping("/agregar-favorito")
     public ResponseEntity<MensajeDTO<String>> agregarFavorito(@Valid @RequestBody FavoritoDTO favoritoDTO) throws Exception {
         clienteServicio.agregarFavorito(favoritoDTO);

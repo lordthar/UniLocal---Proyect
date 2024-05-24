@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface NegocioServicio {
 
+    List<String> listarEstadosNegocio();
+
     List<ItemNegocioDTO> listarNegociosFavoritos(String codigoCliente) throws Exception;
 
     List<String> listarTiposNegocio();
@@ -29,7 +31,7 @@ public interface NegocioServicio {
 
     List<ItemNegocioDTO> filtrarPorTipoNegocio(TIPO_NEGOCIO tipoNegocio) throws Exception;
 
-    List<ItemNegocioDTO> negociosEditadosPorModerador(String codigoModerador);
+    List<ItemNegocioDTO> negociosEditadosPorModerador(String codigoModerador) throws Exception;
 
     void aprobarNegocio(AprobarNegocioDTO aprobarNegocioDTO) throws Exception;
 

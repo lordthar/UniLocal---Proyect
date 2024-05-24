@@ -2,8 +2,6 @@ package co.edu.uniquindio.unilocalProyect.dtos;
 
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Coordenada;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Horario;
-import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
-import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -20,7 +18,6 @@ public record CrearNegocioDTO(
         @NotBlank String codigoCliente,
         @NotNull Coordenada ubicacion,
         ArrayList<String> imagenes,
-        @NotNull TIPO_NEGOCIO tipoNegocio,
         @NotEmpty List<Horario> horarios,
         @NotNull Coordenada coordenada,
         @NotNull TIPO_NEGOCIO tipoNegocio,

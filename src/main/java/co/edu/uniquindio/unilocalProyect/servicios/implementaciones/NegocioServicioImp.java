@@ -35,6 +35,11 @@ public class NegocioServicioImp implements NegocioServicio {
     private final ClienteServicio clienteServicio;
     private final EmailServicio emailServicio;
 
+    @Override
+    public List<String> listarEstadosNegocio() {
+        return Arrays.stream(ESTADO_NEGOCIO.values()).map(estadoNegocio -> estadoNegocio.toString()).collect(Collectors.toList());
+    }
+
     /**
      * Lista los negocios cuyo id se encuentre en la lista de Favoritos del cliente
      */
@@ -71,7 +76,7 @@ public class NegocioServicioImp implements NegocioServicio {
      * Lista los negocios que se encuentran activos y aprobados
      */
     @Override
-    public List<ItemNegocioDTO> listarNegocios() {
+    public List<ItemNegocioDTO> listarNegocios() throws Exception {
         List<Negocio> negocios = negocioRepo.findByEstadoNegocioAndEstadoRegistro(ESTADO_NEGOCIO.APROBADO, ESTADO_REGISTRO.ACTIVO);
         return getNegociosItemDTO(negocios);
     }
@@ -86,7 +91,7 @@ public class NegocioServicioImp implements NegocioServicio {
     public String crearNegocio(CrearNegocioDTO crearNegocioDTO) throws Exception {
 
         DetalleClienteDTO cliente = clienteServicio.obtenerCliente(crearNegocioDTO.codigoCliente());
-        int cantidadNegociosCliente = cantidadNegociosCliente(crearNegocioDTO.codigoClient());
+        int cantidadNegociosCliente = cantidadNegociosCliente(crearNegocioDTO.codigoCliente());
 
         if (cliente.tipoCliente() == TIPO_CLIENTE.NORMAL && cantidadNegociosCliente != 0) {
             throw new Exception("El cliente ya tiene un negocio");
@@ -152,8 +157,8 @@ public class NegocioServicioImp implements NegocioServicio {
         }
 
         return new DetalleNegocioDTO(negocio.getCodigo(), negocio.getNombre(), negocio.getDescripcion(),
-                negocio.getCodigoCliente(), recorrerUrl(negocio.getImagenes()), negocio.getTelefonos(), negocio.getHorarios(),
-                negocio.getTipoNegocio(), negocio.getCoordenada(), negocio.getEstadoRegistro(),
+                negocio.getCodigoCliente(), negocio.getImagenes(), negocio.getTelefonos(), negocio.getHorarios(),
+                negocio.getTipoNegocio(), negocio.getCoordenada(), negocio.getEstadoRegistro(), negocio.getEstadoNegocio(),
                 negocio.getHistorialRevisiones());
     }
 
@@ -245,7 +250,7 @@ public class NegocioServicioImp implements NegocioServicio {
      * Devuelve los negocios que ha gestionado un moderador
      */
     @Override
-    public List<ItemNegocioDTO> negociosEditadosPorModerador(String codigoModerador) {
+    public List<ItemNegocioDTO> negociosEditadosPorModerador(String codigoModerador) throws Exception {
 
         List<Negocio> negocios = negocioRepo.findByHistorialRevisionesCodigoModerador(codigoModerador);
 
@@ -362,12 +367,6 @@ public class NegocioServicioImp implements NegocioServicio {
                     negocio.getTipoNegocio(), negocio.getCoordenada()));
         }
         return items;
-    }
-
-    @Override
-    public List<ItemNegocioDTO> listarNegocios() throws Exception {
-        List<Negocio> negocios = negocioRepo.findByEstadoNegocioAndEstadoRegistro(ESTADO_NEGOCIO.APROBADO, ESTADO_REGISTRO.ACTIVO);
-        return getNegociosItemDTO(negocios);
     }
 
     @Override

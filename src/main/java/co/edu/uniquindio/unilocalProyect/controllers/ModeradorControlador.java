@@ -21,7 +21,12 @@ public class ModeradorControlador {
     private final ModeradorServicio moderadorServicio;
     private final NegocioServicio negocioServicio;
 
-    @PutMapping("/eliminar-cuenta/{idCuenta}")
+    @GetMapping("/listar-estados-negocio")
+    public ResponseEntity<MensajeDTO<List<String>>> listarEstadosNegocio() throws Exception {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarEstadosNegocio()));
+    }
+
+    @DeleteMapping("/eliminar-cuenta/{idCuenta}")
     public ResponseEntity<MensajeDTO<String>> eliminarCuenta(@PathVariable String idCuenta) throws Exception {
         moderadorServicio.eliminarCuenta(idCuenta);
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Moderador eliminado correctamente"));

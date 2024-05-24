@@ -46,7 +46,7 @@ public class ClienteControlador {
     }
 
     @GetMapping("/listar-negocios")
-    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() {
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocios()));
     }
 

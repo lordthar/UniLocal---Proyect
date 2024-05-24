@@ -12,7 +12,7 @@ public record ItemNegocioDTO(
         String nombre,
         String descripcion,
         String codigoCliente,
-        List<String> imagenes,
+        List<Imagen> imagenes,
         ESTADO_NEGOCIO estadoNegocio,
         TIPO_NEGOCIO tipoNegocio,
         Coordenada coordenada

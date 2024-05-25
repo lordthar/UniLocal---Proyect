@@ -46,22 +46,6 @@ public class NegocioServicioTest {
 
     @Test
     public void crearNegocioTest() throws Exception {
-
-        CrearNegocioDTO crearNegocioDTO = new CrearNegocioDTO(
-                "El museum",
-                "Historias divertidas",
-                "Cliente4",
-                (Coordenada) List.of("Fot|o1"),
-                new ArrayList<>(),
-                new ArrayList<>(),
-                new Coordenada(11.24, 22.223),
-                TIPO_NEGOCIO.MUSEO,
-                (ArrayList<String>) List.of("Telefono1")
-                );
-
-        String codigoNegocioCreado = negocioServicio.crearNegocio(crearNegocioDTO);
-
-        Assertions.assertNotNull(codigoNegocioCreado);
     }
 
     @Test

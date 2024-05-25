@@ -39,7 +39,7 @@ public class NegocioServicioTest {
     }
 
     @Test
-    public void listarNegociosTest() {
+    public void listarNegociosTest() throws Exception {
         List<ItemNegocioDTO> negocios = negocioServicio.listarNegocios();
         Assertions.assertEquals(2, negocios.size());
     }
@@ -52,11 +52,12 @@ public class NegocioServicioTest {
                 "Historias divertidas",
                 "Cliente4",
                 (Coordenada) List.of("Fot|o1"),
-                (ArrayList<String>) List.of("Telefono1"),
-                TIPO_NEGOCIO.MUSEO,
+                new ArrayList<>(),
+                new ArrayList<>(),
                 new Coordenada(11.24, 22.223),
-                TIPO_NEGOCIO.MUSEO
-        );
+                TIPO_NEGOCIO.MUSEO,
+                (ArrayList<String>) List.of("Telefono1")
+                );
 
         String codigoNegocioCreado = negocioServicio.crearNegocio(crearNegocioDTO);
 

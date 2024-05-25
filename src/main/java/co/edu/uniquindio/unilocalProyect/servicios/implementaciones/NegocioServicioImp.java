@@ -192,7 +192,7 @@ public class NegocioServicioImp implements NegocioServicio {
         negocio.setImagenes(actualizarNegocioDTO.imagenes());
         negocio.setTelefonos(actualizarNegocioDTO.telefonos());
         negocio.setHorarios(actualizarNegocioDTO.horarios());
-        negocio.setCoordenada(actualizarNegocioDTO.coordenada());
+        negocio.setCoordenada(actualizarNegocioDTO.ubicacion());
         negocio.setTipoNegocio(actualizarNegocioDTO.tipoNegocio());
 
         negocioRepo.save(negocio);

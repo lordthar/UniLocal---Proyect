@@ -20,7 +20,7 @@ public record ActualizarNegocioDTO(
         @NotEmpty ArrayList<Imagen> imagenes,
         List<String> telefonos,
         @NotEmpty List<Horario> horarios,
-        @NotNull Coordenada coordenada,
+        @NotNull Coordenada ubicacion,
         @NotNull TIPO_NEGOCIO tipoNegocio
 
 ) {

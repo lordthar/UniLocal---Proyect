@@ -19,7 +19,6 @@ public record CrearNegocioDTO(
         @NotNull Coordenada ubicacion,
         ArrayList<String> imagenes,
         @NotEmpty List<Horario> horarios,
-        @NotNull Coordenada coordenada,
         @NotNull TIPO_NEGOCIO tipoNegocio,
         List<String> telefonos
 ) {

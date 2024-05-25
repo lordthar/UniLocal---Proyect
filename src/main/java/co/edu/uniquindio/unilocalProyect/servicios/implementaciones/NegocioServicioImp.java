@@ -121,7 +121,7 @@ public class NegocioServicioImp implements NegocioServicio {
      * Calcula la cantidad de negocios de un cliente
      */
     private int cantidadNegociosCliente(String codigoClient) {
-        return negocioRepo.findByCodigoCliente(codigoClient).size();
+        return negocioRepo.findByCodigoClienteAndEstadoRegistro(codigoClient, ESTADO_REGISTRO.ACTIVO).size();
     }
 
     private ArrayList<Imagen> almacenarImagenes(ArrayList<String> Imagen)throws Exception{

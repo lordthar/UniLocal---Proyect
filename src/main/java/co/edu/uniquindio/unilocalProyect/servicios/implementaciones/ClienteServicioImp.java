@@ -3,6 +3,7 @@ package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
+import co.edu.uniquindio.unilocalProyect.modelo.entidades.Imagen;
 import co.edu.uniquindio.unilocalProyect.modelo.entidades.Favorito;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_CLIENTE;
@@ -42,19 +43,26 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("El nickname ya se encuentra registrado por otro usuario");
         }
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String passwordEncriptada = passwordEncoder.encode(registroClienteDTO.password());
         Cliente cliente = new Cliente();
         cliente.setNombre(registroClienteDTO.nombre());
         cliente.setNickname(registroClienteDTO.nickname());
+        cliente.setFotoPerfil(new Imagen(null,registroClienteDTO.fotoPerfil()));
         cliente.setEmail(registroClienteDTO.email());
-        cliente.setPassword(registroClienteDTO.password());
-        cliente.setFotoPerfil(String.valueOf(registroClienteDTO.fotoPerfil()));
+        cliente.setPassword(passwordEncriptada);
         cliente.setCiudadResidencia(registroClienteDTO.ciudadRecidencia());
         cliente.setTelefonos(registroClienteDTO.telefonos());
         cliente.setEstadoRegistro(ESTADO_REGISTRO.ACTIVO);
         cliente.setTipoCliente(TIPO_CLIENTE.NORMAL);
-        Cliente clienteGuardado = clienteRepo.save(cliente);
 
-        return clienteGuardado.getCodigo();
+        try{
+            clienteRepo.save(cliente);
+        }catch(Exception e){
+            throw new Exception("Algo Salio mal");
+        }
+        emailServicio.enviarCorreo(new EmailDTO("Bienvenido a Unilocal " + registroClienteDTO.nombre(), "Nos alegra que estes con nosotros", registroClienteDTO.email()));
+        return cliente.getCodigo();
     }
 
     private boolean existeNickname(String nickname) throws Exception {
@@ -74,7 +82,7 @@ public class ClienteServicioImp implements ClienteServicio {
         }
         Cliente cliente = clienteOptional.get();
         cliente.setNombre( actualizarClienteDTO.nombre() );
-        cliente.setFotoPerfil( actualizarClienteDTO.fotoPerfil() );
+        cliente.setFotoPerfil(new Imagen(null, actualizarClienteDTO.fotoPerfil()));
         cliente.setCiudadResidencia( actualizarClienteDTO.ciudadRecidencia());
         cliente.setTelefonos((actualizarClienteDTO.telefonos()));
 
@@ -116,7 +124,7 @@ public class ClienteServicioImp implements ClienteServicio {
             throw new Exception("El cliente al que intenta buscar no esta activo");
         }
         return new DetalleClienteDTO(cliente.getCodigo(), cliente.getNombre(),
-                cliente.getFotoPerfil(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia(),
+                cliente.getFotoPerfil().getUrlImagen(), cliente.getNickname(), cliente.getEmail(), cliente.getCiudadResidencia(),
                 cliente.getTelefonos(), cliente.getTipoCliente());
     }
 
@@ -126,7 +134,7 @@ public class ClienteServicioImp implements ClienteServicio {
 
         for (Cliente cliente : clientes) {
             items.add(new ItemClienteDTO(cliente.getNickname(),
-                    cliente.getFotoPerfil(), cliente.getCiudadResidencia(), cliente.getTipoCliente()));
+                   cliente.getFotoPerfil().getUrlImagen(), cliente.getCiudadResidencia(), cliente.getTipoCliente()));
         }
         return items;
     }

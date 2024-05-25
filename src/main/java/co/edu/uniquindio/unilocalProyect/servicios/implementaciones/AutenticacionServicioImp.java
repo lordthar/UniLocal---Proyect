@@ -44,7 +44,7 @@ public class AutenticacionServicioImp implements AutenticacionServicio {
         map.put("rol", "CLIENTE");
         map.put("nombre", cliente.getNombre());
         map.put("id", cliente.getCodigo());
-        return new TokenDTO( jwtUtils.generarToken(cliente.getEmail(), map) );
+        return new TokenDTO( jwtUtils.generarToken(cliente.getEmail(),cliente.getPassword(), map) );
     }
 
     @Override
@@ -68,6 +68,6 @@ public class AutenticacionServicioImp implements AutenticacionServicio {
         map.put("nickname", moderador.getNickname());
         map.put("id", moderador.getCodigo());
 
-        return new TokenDTO(jwtUtils.generarToken(moderador.getEmail(), map));
+        return new TokenDTO(jwtUtils.generarToken(moderador.getEmail(),moderador.getPassword(), map));
     }
 }

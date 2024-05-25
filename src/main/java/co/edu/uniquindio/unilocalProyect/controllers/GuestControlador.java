@@ -1,12 +1,11 @@
 package co.edu.uniquindio.unilocalProyect.controllers;
 
-import co.edu.uniquindio.unilocalProyect.dtos.ItemComantarioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.ItemNegocioDTO;
-import co.edu.uniquindio.unilocalProyect.dtos.MensajeDTO;
+import co.edu.uniquindio.unilocalProyect.dtos.*;
 import co.edu.uniquindio.unilocalProyect.modelo.enums.TIPO_NEGOCIO;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ComentarioServicio;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.ModeradorServicio;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.NegocioServicio;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/guests")
 @RequiredArgsConstructor
-public class GuestConrolador {
+public class GuestControlador {
+    private final NegocioServicio negocioServicio;
     private final ComentarioServicio comentarioServicio;
     private final ModeradorServicio moderadorServicio;
-    private final NegocioServicio negocioServicio;
 
     @GetMapping("/listar-tipo-negocios")
     public ResponseEntity<MensajeDTO<List<String>>> listarTipoNegocio() {
@@ -28,7 +27,7 @@ public class GuestConrolador {
     }
 
     @GetMapping("/listar-negocios")
-    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() {
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocios()));
     }
 
@@ -36,6 +35,18 @@ public class GuestConrolador {
     public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> buscarNegocioPorNombre(@PathVariable String nombreNegocio)throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false,  negocioServicio.filtrarPorNombre(nombreNegocio))
         );
+    }
+
+    @PostMapping("/crear-negocio")
+    public ResponseEntity<MensajeDTO<String>> crearNegocio(@Valid @RequestBody CrearNegocioDTO crearNegocioDTO)throws Exception{
+        negocioServicio.crearNegocio(crearNegocioDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio Creado Correctamente")
+        );
+    }
+
+    @GetMapping("/listar-negocios-propietario/{idCliente}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocioPropietario(@PathVariable String idCliente) throws Exception {
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocioPropietario(idCliente)));
     }
 
     @GetMapping("/buscarTipoNegocio/{tipoNegocio}")
@@ -47,6 +58,26 @@ public class GuestConrolador {
     @GetMapping("/listaComentarios")
     public ResponseEntity<MensajeDTO<List<ItemComantarioDTO>>> listarComentariosGuest()throws Exception{
         return ResponseEntity.ok().body( new MensajeDTO<>(false, comentarioServicio.listarComentarios())
+        );
+    }
+
+    @GetMapping("/filtrar-por-nombre/{nombre}")
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> filtrarPorNombre(@PathVariable String nombre) throws Exception {
+            List<ItemNegocioDTO> negocios = negocioServicio.filtrarPorNombre(nombre);
+            return ResponseEntity.ok().body(new MensajeDTO<>(false, negocios));
+    }
+
+    @PutMapping("/editar-negocio")
+    public ResponseEntity<MensajeDTO<String>> editarNegocio(@Valid @RequestBody ActualizarNegocioDTO actualizarNegocioDTO)throws Exception{
+        negocioServicio.actualizarNegocio(actualizarNegocioDTO);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio Editado Con Exito")
+        );
+    }
+
+    @DeleteMapping("/eliminar-negocio/{idNegocio}")
+    public ResponseEntity<MensajeDTO<String>> eliminarNegocio(@PathVariable String idNegocio)throws Exception{
+        negocioServicio.eliminarNegocio(idNegocio);
+        return ResponseEntity.ok().body( new MensajeDTO<>(false, "Negocio eliminado exitosamente")
         );
     }
     @GetMapping("/filtrar-calificacion/{calificacion}")

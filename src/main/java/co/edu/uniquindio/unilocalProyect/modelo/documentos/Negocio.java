@@ -13,6 +13,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class Negocio {
     private String nombre;
     private String descripcion;
     private String codigoCliente;
-    private List<String> imagenes;
+    private ArrayList<Imagen> imagenes;
     private List<String> telefonos;
     private List<Horario> horarios;
     private Coordenada coordenada;

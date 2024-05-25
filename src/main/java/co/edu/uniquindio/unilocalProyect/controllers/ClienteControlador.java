@@ -27,6 +27,7 @@ public class ClienteControlador {
     private final PqrsServicio pqrsServicio;
     private final NegocioServicio negocioServicio;
 
+
     @PutMapping("/agregar-favorito")
     public ResponseEntity<MensajeDTO<String>> agregarFavorito(@Valid @RequestBody FavoritoDTO favoritoDTO) throws Exception {
         clienteServicio.agregarFavorito(favoritoDTO);
@@ -45,7 +46,7 @@ public class ClienteControlador {
     }
 
     @GetMapping("/listar-negocios")
-    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() {
+    public ResponseEntity<MensajeDTO<List<ItemNegocioDTO>>> listarNegocios() throws Exception {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, negocioServicio.listarNegocios()));
     }
 

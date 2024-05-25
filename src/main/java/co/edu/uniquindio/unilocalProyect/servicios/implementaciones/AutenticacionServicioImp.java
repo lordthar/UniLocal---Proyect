@@ -2,8 +2,10 @@ package co.edu.uniquindio.unilocalProyect.servicios.implementaciones;
 
 import co.edu.uniquindio.unilocalProyect.dtos.LoginDTO;
 import co.edu.uniquindio.unilocalProyect.dtos.TokenDTO;
+import co.edu.uniquindio.unilocalProyect.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Cliente;
 import co.edu.uniquindio.unilocalProyect.modelo.documentos.Moderador;
+import co.edu.uniquindio.unilocalProyect.modelo.enums.ESTADO_REGISTRO;
 import co.edu.uniquindio.unilocalProyect.repositorios.ClienteRepo;
 import co.edu.uniquindio.unilocalProyect.repositorios.ModeradorRepo;
 import co.edu.uniquindio.unilocalProyect.servicios.interfaces.AutenticacionServicio;
@@ -35,6 +37,10 @@ public class AutenticacionServicioImp implements AutenticacionServicio {
         }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Cliente cliente = clienteOptional.get();
+
+        if (cliente.getEstadoRegistro() == ESTADO_REGISTRO.INACTIVO) {
+            throw new ResourceNotFoundException("El cliente no se encuentra activo");
+        }
 
         if(!passwordEncoder.matches(loginDTO.password(), cliente.getPassword())){
             throw new Exception("La contraseña ingresada es incorrecta, intente de nuevo");
